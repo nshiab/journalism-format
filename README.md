@@ -30,10 +30,10 @@ To install the library, you can use the following commands:
 deno install jsr:@nshiab/journalism-format
 
 # NODE.JS
-npx jsr add @nshiab/journalism
+npx jsr add @nshiab/journalism-format
 
 # BUN
-bunx jsr add @nshiab/journalism
+bunx jsr add @nshiab/journalism-format
 ```
 
 If you wish to contribute, please check the
