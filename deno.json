@@ -1,6 +1,6 @@
 {
   "name": "@nshiab/journalism-format",
-  "version": "0.1.2",
+  "version": "1.0.0",
   "exports": {
     ".": "./src/index.ts"
   },
@@ -12,7 +12,7 @@
     "minor-no-tests": "deno run -A src/incrementVersion.ts minor",
     "patch": "deno task all-tests && deno run -A src/incrementVersion.ts patch",
     "minor": "deno task all-tests && deno run -A src/incrementVersion.ts minor",
-    "major": "deno-task all-tests && deno run -A src/incrementVersion.ts major"
+    "major": "deno task all-tests && deno run -A src/incrementVersion.ts major"
   },
   "publish": {
     "exclude": [
