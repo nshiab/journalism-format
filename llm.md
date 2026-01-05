@@ -281,7 +281,11 @@ function formatDate(
     | "MM"
     | "DD"
     | "HH:MM period"
-    | "HH:MM period TZ",
+    | "HH:MM period TZ"
+    | "HH:MM period TZ on Month DD, YYYY"
+    | "HH:MM period on Month DD, YYYY"
+    | "HH:MM period TZ on Month DD"
+    | "HH:MM period on Month DD",
   options?: {
     utc?: boolean;
     style?: "cbc" | "rc";
