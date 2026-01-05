@@ -659,3 +659,139 @@ Deno.test("should return a Date in the format Month DD, YYYY with threeLetterMon
   );
   assertEquals(formattedDate, "1 avr. 2023");
 });
+
+Deno.test("should return a Date in the format HH:MM period TZ on Month DD, YYYY (CBC)", () => {
+  const formattedDate = formatDate(
+    date,
+    "HH:MM period TZ on Month DD, YYYY",
+    {
+      utc: true,
+    },
+  );
+  assertEquals(formattedDate, "1:35 a.m. UTC on January 1, 2023");
+});
+
+Deno.test("should return a Date in the format HH:MM period TZ on Month DD, YYYY (RC)", () => {
+  const formattedDate = formatDate(
+    date,
+    "HH:MM period TZ on Month DD, YYYY",
+    {
+      utc: true,
+      style: "rc",
+    },
+  );
+  assertEquals(formattedDate, "1 h 35 UTC le 1 janvier 2023");
+});
+
+Deno.test("should return a Date in the format HH:MM period TZ on Month DD, YYYY with time zone (CBC)", () => {
+  const formattedDate = formatDate(
+    date,
+    "HH:MM period TZ on Month DD, YYYY",
+    {
+      timeZone: "Canada/Eastern",
+    },
+  );
+  assertEquals(formattedDate, "8:35 p.m. ET on December 31, 2022");
+});
+
+Deno.test("should return a Date in the format HH:MM period on Month DD, YYYY (CBC)", () => {
+  const formattedDate = formatDate(
+    date,
+    "HH:MM period on Month DD, YYYY",
+    {
+      utc: true,
+    },
+  );
+  assertEquals(formattedDate, "1:35 a.m. on January 1, 2023");
+});
+
+Deno.test("should return a Date in the format HH:MM period on Month DD, YYYY (RC)", () => {
+  const formattedDate = formatDate(
+    date,
+    "HH:MM period on Month DD, YYYY",
+    {
+      utc: true,
+      style: "rc",
+    },
+  );
+  assertEquals(formattedDate, "1 h 35 le 1 janvier 2023");
+});
+
+Deno.test("should return a Date in the format HH:MM period on Month DD, YYYY (afternoon, CBC)", () => {
+  const formattedDate = formatDate(
+    datePM,
+    "HH:MM period on Month DD, YYYY",
+    {
+      utc: true,
+    },
+  );
+  assertEquals(formattedDate, "3:35 p.m. on January 1, 2023");
+});
+
+Deno.test("should return a Date in the format HH:MM period TZ on Month DD (CBC)", () => {
+  const formattedDate = formatDate(
+    date,
+    "HH:MM period TZ on Month DD",
+    {
+      utc: true,
+    },
+  );
+  assertEquals(formattedDate, "1:35 a.m. UTC on January 1");
+});
+
+Deno.test("should return a Date in the format HH:MM period TZ on Month DD (RC)", () => {
+  const formattedDate = formatDate(
+    date,
+    "HH:MM period TZ on Month DD",
+    {
+      utc: true,
+      style: "rc",
+    },
+  );
+  assertEquals(formattedDate, "1 h 35 UTC le 1 janvier");
+});
+
+Deno.test("should return a Date in the format HH:MM period TZ on Month DD with time zone (CBC)", () => {
+  const formattedDate = formatDate(
+    date,
+    "HH:MM period TZ on Month DD",
+    {
+      timeZone: "Canada/Pacific",
+    },
+  );
+  assertEquals(formattedDate, "5:35 p.m. PT on December 31");
+});
+
+Deno.test("should return a Date in the format HH:MM period on Month DD (CBC)", () => {
+  const formattedDate = formatDate(
+    date,
+    "HH:MM period on Month DD",
+    {
+      utc: true,
+    },
+  );
+  assertEquals(formattedDate, "1:35 a.m. on January 1");
+});
+
+Deno.test("should return a Date in the format HH:MM period on Month DD (RC)", () => {
+  const formattedDate = formatDate(
+    date,
+    "HH:MM period on Month DD",
+    {
+      utc: true,
+      style: "rc",
+    },
+  );
+  assertEquals(formattedDate, "1 h 35 le 1 janvier");
+});
+
+Deno.test("should return a Date in the format HH:MM period on Month DD with no minutes (CBC)", () => {
+  const formattedDate = formatDate(
+    dateNoMinutes,
+    "HH:MM period on Month DD",
+    {
+      utc: true,
+    },
+  );
+  assertEquals(formattedDate, "1 a.m. on January 1");
+});

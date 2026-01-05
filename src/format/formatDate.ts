@@ -72,7 +72,11 @@ export default function formatDate(
     | "MM"
     | "DD"
     | "HH:MM period"
-    | "HH:MM period TZ",
+    | "HH:MM period TZ"
+    | "HH:MM period TZ on Month DD, YYYY"
+    | "HH:MM period on Month DD, YYYY"
+    | "HH:MM period TZ on Month DD"
+    | "HH:MM period on Month DD",
   options: {
     utc?: boolean;
     style?: "cbc" | "rc";
@@ -214,6 +218,38 @@ export default function formatDate(
       dateFormatted = formatFns(date, "h:mm aa zzz");
     } else if (mergedOptions.style === "rc") {
       dateFormatted = formatFns(date, "H 'h' mm zzz");
+    }
+  } else if (format === "HH:MM period TZ on Month DD, YYYY") {
+    if (mergedOptions.style === "cbc") {
+      dateFormatted = formatFns(date, "h:mm aa zzz 'on' MMMM d, yyyy", {
+        timeZone,
+      });
+    } else if (mergedOptions.style === "rc") {
+      dateFormatted = formatFns(date, "H 'h' mm zzz 'le' d MMMM yyyy", {
+        timeZone,
+      });
+    }
+  } else if (format === "HH:MM period on Month DD, YYYY") {
+    if (mergedOptions.style === "cbc") {
+      dateFormatted = formatFns(date, "h:mm aa 'on' MMMM d, yyyy");
+    } else if (mergedOptions.style === "rc") {
+      dateFormatted = formatFns(date, "H 'h' mm 'le' d MMMM yyyy");
+    }
+  } else if (format === "HH:MM period TZ on Month DD") {
+    if (mergedOptions.style === "cbc") {
+      dateFormatted = formatFns(date, "h:mm aa zzz 'on' MMMM d", {
+        timeZone,
+      });
+    } else if (mergedOptions.style === "rc") {
+      dateFormatted = formatFns(date, "H 'h' mm zzz 'le' d MMMM", {
+        timeZone,
+      });
+    }
+  } else if (format === "HH:MM period on Month DD") {
+    if (mergedOptions.style === "cbc") {
+      dateFormatted = formatFns(date, "h:mm aa 'on' MMMM d");
+    } else if (mergedOptions.style === "rc") {
+      dateFormatted = formatFns(date, "H 'h' mm 'le' d MMMM");
     }
   } else {
     throw new Error("Unknown format");
