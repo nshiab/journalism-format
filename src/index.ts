@@ -7,6 +7,7 @@ import dataToArrays from "./format/dataToArrays.ts";
 import dataAsCsv from "./format/dataAsCsv.ts";
 import capitalize from "./format/capitalize.ts";
 import camelCase from "./format/camelCase.ts";
+import printTable from "./format/printTable.ts";
 
 export {
   arraysToData,
@@ -17,5 +18,6 @@ export {
   formatDate,
   formatNumber,
   prettyDuration,
+  printTable,
   round,
 };
