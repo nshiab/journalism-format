@@ -466,6 +466,38 @@ const position2 = formatNumber(2, { position: true, style: "rc" });
 console.log(position2); // "2e"
 ```
 
+## normalizeString
+
+Normalizes a string by converting it to lowercase and stripping accents.
+
+### Signature
+
+```typescript
+function normalizeString(string: string): string;
+```
+
+### Parameters
+
+- **`string`**: The string to be normalized.
+
+### Returns
+
+A new string with characters in lowercase and without accents.
+
+### Examples
+
+```ts
+// Basic usage
+const normalized = normalizeString("Évènement");
+console.log(normalized); // "evenement"
+```
+
+```ts
+// With accents and uppercase
+const normalized = normalizeString("Niño");
+console.log(normalized); // "nino"
+```
+
 ## prettyDuration
 
 Formats a duration into a human-readable string, breaking it down into years,
