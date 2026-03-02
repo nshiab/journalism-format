@@ -16,5 +16,8 @@ Deno.test("should trim whitespace", () => {
 });
 
 Deno.test("should handle complex accented strings", () => {
-  assertEquals(normalizeString("ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïñòóôõöùúûüýÿ"), "aaaaaaceeeeiiiinooooouuuuyaaaaaaceeeeiiiinooooouuuuyy");
+  assertEquals(
+    normalizeString("ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïñòóôõöùúûüýÿ"),
+    "aaaaaaceeeeiiiinooooouuuuyaaaaaaceeeeiiiinooooouuuuyy",
+  );
 });

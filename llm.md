@@ -468,7 +468,8 @@ console.log(position2); // "2e"
 
 ## normalizeString
 
-Normalizes a string by converting it to lowercase and stripping accents.
+Normalizes a string by converting it to lowercase, stripping accents, and
+trimming whitespace.
 
 ### Signature
 
@@ -482,7 +483,8 @@ function normalizeString(string: string): string;
 
 ### Returns
 
-A new string with characters in lowercase and without accents.
+A new string with characters in lowercase, without accents, and without leading
+or trailing whitespace.
 
 ### Examples
 
