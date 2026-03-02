@@ -1,9 +1,9 @@
 /**
- * Normalizes a string by converting it to lowercase and stripping accents.
+ * Normalizes a string by converting it to lowercase, stripping accents, and trimming whitespace.
  *
  * @param string The string to be normalized.
  *
- * @returns A new string with characters in lowercase and without accents.
+ * @returns A new string with characters in lowercase, without accents, and without leading or trailing whitespace.
  *
  * @example
  * ```ts
