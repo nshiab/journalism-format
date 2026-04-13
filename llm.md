@@ -560,18 +560,18 @@ function prettyDuration(
 
 ### Parameters
 
-- **`start`**: - The starting point of the duration. This can be a `Date` object
+- **`start`**: The starting point of the duration. This can be a `Date` object
   or a Unix timestamp (number of milliseconds since epoch).
-- **`options`**: - Optional settings to customize the duration formatting and
+- **`options`**: Optional settings to customize the duration formatting and
   output.
-- **`options.log`**: - If `true`, the formatted duration string will be logged
-  to the console. Defaults to `false`.
-- **`options.end`**: - The ending point of the duration. This can be a `Date`
+- **`options.log`**: If `true`, the formatted duration string will be logged to
+  the console. Defaults to `false`.
+- **`options.end`**: The ending point of the duration. This can be a `Date`
   object or a Unix timestamp. If omitted, the current time (`Date.now()`) will
   be used as the end point.
-- **`options.prefix`**: - A string to prepend to the formatted duration string
+- **`options.prefix`**: A string to prepend to the formatted duration string
   (e.g., "Elapsed time: ").
-- **`options.suffix`**: - A string to append to the formatted duration string
+- **`options.suffix`**: A string to append to the formatted duration string
   (e.g., " (Task completed)").
 
 ### Returns
@@ -642,15 +642,15 @@ function printTable(
 
 ### Parameters
 
-- **`data`**: - An array of objects representing the rows of the table. Each
+- **`data`**: An array of objects representing the rows of the table. Each
   object should have string keys.
-- **`options`**: - Optional configuration for table rendering.
-- **`options.maxColumnWidth`**: - The maximum width for any column (default:
-  75). Values exceeding this width will be wrapped at word boundaries.
-- **`options.minColumnWidth`**: - The minimum width for any column (default: 3).
-- **`options.typesRowIndex`**: - The index of a row that contains type
-  annotations (e.g. "VARCHAR/string"). This row will be rendered in grey. If
-  omitted, no row is treated as a types row.
+- **`options`**: Optional configuration for table rendering.
+- **`options.maxColumnWidth`**: The maximum width for any column (default: 75).
+  Values exceeding this width will be wrapped at word boundaries.
+- **`options.minColumnWidth`**: The minimum width for any column (default: 3).
+- **`options.typesRowIndex`**: The index of a row that contains type annotations
+  (e.g. "VARCHAR/string"). This row will be rendered in grey. If omitted, no row
+  is treated as a types row.
 
 ### Returns
 
@@ -706,17 +706,17 @@ function round(
 
 ### Parameters
 
-- **`number`**: - The number to be rounded.
-- **`options`**: - An object containing options for rounding.
-- **`options.decimals`**: - The number of decimal places to keep when rounding.
+- **`number`**: The number to be rounded.
+- **`options`**: An object containing options for rounding.
+- **`options.decimals`**: The number of decimal places to keep when rounding.
   For example, `round(123.456, { decimals: 2 })` returns `123.46`.
-- **`options.nearestInteger`**: - The base to which the number should be
-  rounded. For example, `round(123, { nearestInteger: 10 })` rounds to `120`.
-- **`options.significantDigits`**: - The number of significant digits to retain.
+- **`options.nearestInteger`**: The base to which the number should be rounded.
+  For example, `round(123, { nearestInteger: 10 })` rounds to `120`.
+- **`options.significantDigits`**: The number of significant digits to retain.
   Significant digits are counted from the first non-zero digit. For example,
   `round(0.004622, { significantDigits: 1 })` rounds to `0.005`.
-- **`options.try`**: - If `true`, the function will return `NaN` (Not a Number)
-  if the input `number` is not a valid number, instead of throwing an error.
+- **`options.try`**: If `true`, the function will return `NaN` (Not a Number) if
+  the input `number` is not a valid number, instead of throwing an error.
   Defaults to `false`.
 
 ### Returns
