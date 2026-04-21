@@ -101,8 +101,7 @@ export default function formatDate(
   let timeZone;
   if (options.utc === true) {
     timeZone = "UTC";
-  }
-  if (typeof options.timeZone === "string") {
+  } else if (typeof options.timeZone === "string") {
     timeZone = options.timeZone;
   }
 
@@ -126,34 +125,38 @@ export default function formatDate(
   let dateFormatted = "";
 
   if (format === "YYYY-MM-DD") {
-    dateFormatted = formatFns(date, "yyyy-MM-dd");
+    dateFormatted = formatFns(date, "yyyy-MM-dd", { timeZone });
   } else if (format === "YYYY-MM-DD HH:MM:SS TZ") {
     dateFormatted = formatFns(date, "yyyy-MM-dd HH:mm:ss zzz", {
       timeZone,
     });
   } else if (format === "DayOfWeek, Month Day") {
     if (mergedOptions.style === "cbc") {
-      dateFormatted = formatFns(date, "EEEE, MMMM d");
+      dateFormatted = formatFns(date, "EEEE, MMMM d", { timeZone });
     } else if (mergedOptions.style === "rc") {
-      dateFormatted = formatFns(date, "EEEE d MMMM");
+      dateFormatted = formatFns(date, "EEEE d MMMM", { timeZone });
     }
   } else if (format === "Month DD") {
     if (mergedOptions.style === "cbc") {
-      dateFormatted = formatFns(date, "MMMM d");
+      dateFormatted = formatFns(date, "MMMM d", { timeZone });
     } else if (mergedOptions.style === "rc") {
-      dateFormatted = formatFns(date, "d MMMM");
+      dateFormatted = formatFns(date, "d MMMM", { timeZone });
     }
   } else if (format === "Month DD, YYYY") {
     if (mergedOptions.style === "cbc") {
-      dateFormatted = formatFns(date, "MMMM d, yyyy");
+      dateFormatted = formatFns(date, "MMMM d, yyyy", { timeZone });
     } else if (mergedOptions.style === "rc") {
-      dateFormatted = formatFns(date, "d MMMM yyyy");
+      dateFormatted = formatFns(date, "d MMMM yyyy", { timeZone });
     }
   } else if (format === "Month DD, YYYY, at HH:MM period") {
     if (mergedOptions.style === "cbc") {
-      dateFormatted = formatFns(date, "MMMM d, yyyy, 'at' h:mm aa");
+      dateFormatted = formatFns(date, "MMMM d, yyyy, 'at' h:mm aa", {
+        timeZone,
+      });
     } else if (mergedOptions.style === "rc") {
-      dateFormatted = formatFns(date, "d MMMM yyyy à H 'h' mm");
+      dateFormatted = formatFns(date, "d MMMM yyyy à H 'h' mm", {
+        timeZone,
+      });
     }
   } else if (format === "Month DD, YYYY, at HH:MM period TZ") {
     if (mergedOptions.style === "cbc") {
@@ -166,58 +169,58 @@ export default function formatDate(
       });
     }
   } else if (format === "DayOfWeek") {
-    dateFormatted = formatFns(date, "EEEE");
+    dateFormatted = formatFns(date, "EEEE", { timeZone });
   } else if (format === "Month") {
-    dateFormatted = formatFns(date, "MMMM");
+    dateFormatted = formatFns(date, "MMMM", { timeZone });
   } else if (format === "YYYY") {
-    dateFormatted = formatFns(date, "yyyy");
+    dateFormatted = formatFns(date, "yyyy", { timeZone });
   } else if (format === "MM") {
     if (options.noZeroPadding) {
-      dateFormatted = formatFns(date, "M");
+      dateFormatted = formatFns(date, "M", { timeZone });
     } else {
-      dateFormatted = formatFns(date, "MM");
+      dateFormatted = formatFns(date, "MM", { timeZone });
     }
   } else if (format === "DD") {
     if (options.noZeroPadding) {
-      dateFormatted = formatFns(date, "d");
+      dateFormatted = formatFns(date, "d", { timeZone });
     } else {
-      dateFormatted = formatFns(date, "dd");
+      dateFormatted = formatFns(date, "dd", { timeZone });
     }
   } else if (format === "Month DD, HH:MM period") {
     if (mergedOptions.style === "cbc") {
-      dateFormatted = formatFns(date, "MMMM d, h:mm aa");
+      dateFormatted = formatFns(date, "MMMM d, h:mm aa", { timeZone });
     } else if (mergedOptions.style === "rc") {
-      dateFormatted = formatFns(date, "d MMMM, H 'h' mm");
+      dateFormatted = formatFns(date, "d MMMM, H 'h' mm", { timeZone });
     }
   } else if (format === "Month DD, HH:MM period TZ") {
     if (mergedOptions.style === "cbc") {
-      dateFormatted = formatFns(date, "MMMM d, h:mm aa zzz");
+      dateFormatted = formatFns(date, "MMMM d, h:mm aa zzz", { timeZone });
     } else if (mergedOptions.style === "rc") {
-      dateFormatted = formatFns(date, "d MMMM, H 'h' mm zzz");
+      dateFormatted = formatFns(date, "d MMMM, H 'h' mm zzz", { timeZone });
     }
   } else if (format === "DayOfWeek, HH:MM period") {
     if (mergedOptions.style === "cbc") {
-      dateFormatted = formatFns(date, "EEEE, h:mm aa");
+      dateFormatted = formatFns(date, "EEEE, h:mm aa", { timeZone });
     } else if (mergedOptions.style === "rc") {
-      dateFormatted = formatFns(date, "EEEE, H 'h' mm");
+      dateFormatted = formatFns(date, "EEEE, H 'h' mm", { timeZone });
     }
   } else if (format === "DayOfWeek, HH:MM period TZ") {
     if (mergedOptions.style === "cbc") {
-      dateFormatted = formatFns(date, "EEEE, h:mm aa zzz");
+      dateFormatted = formatFns(date, "EEEE, h:mm aa zzz", { timeZone });
     } else if (mergedOptions.style === "rc") {
-      dateFormatted = formatFns(date, "EEEE, H 'h' mm zzz");
+      dateFormatted = formatFns(date, "EEEE, H 'h' mm zzz", { timeZone });
     }
   } else if (format === "HH:MM period") {
     if (mergedOptions.style === "cbc") {
-      dateFormatted = formatFns(date, "h:mm aa");
+      dateFormatted = formatFns(date, "h:mm aa", { timeZone });
     } else if (mergedOptions.style === "rc") {
-      dateFormatted = formatFns(date, "H 'h' mm");
+      dateFormatted = formatFns(date, "H 'h' mm", { timeZone });
     }
   } else if (format === "HH:MM period TZ") {
     if (mergedOptions.style === "cbc") {
-      dateFormatted = formatFns(date, "h:mm aa zzz");
+      dateFormatted = formatFns(date, "h:mm aa zzz", { timeZone });
     } else if (mergedOptions.style === "rc") {
-      dateFormatted = formatFns(date, "H 'h' mm zzz");
+      dateFormatted = formatFns(date, "H 'h' mm zzz", { timeZone });
     }
   } else if (format === "HH:MM period TZ on Month DD, YYYY") {
     if (mergedOptions.style === "cbc") {
@@ -231,9 +234,13 @@ export default function formatDate(
     }
   } else if (format === "HH:MM period on Month DD, YYYY") {
     if (mergedOptions.style === "cbc") {
-      dateFormatted = formatFns(date, "h:mm aa 'on' MMMM d, yyyy");
+      dateFormatted = formatFns(date, "h:mm aa 'on' MMMM d, yyyy", {
+        timeZone,
+      });
     } else if (mergedOptions.style === "rc") {
-      dateFormatted = formatFns(date, "H 'h' mm 'le' d MMMM yyyy");
+      dateFormatted = formatFns(date, "H 'h' mm 'le' d MMMM yyyy", {
+        timeZone,
+      });
     }
   } else if (format === "HH:MM period TZ on Month DD") {
     if (mergedOptions.style === "cbc") {
@@ -247,9 +254,9 @@ export default function formatDate(
     }
   } else if (format === "HH:MM period on Month DD") {
     if (mergedOptions.style === "cbc") {
-      dateFormatted = formatFns(date, "h:mm aa 'on' MMMM d");
+      dateFormatted = formatFns(date, "h:mm aa 'on' MMMM d", { timeZone });
     } else if (mergedOptions.style === "rc") {
-      dateFormatted = formatFns(date, "H 'h' mm 'le' d MMMM");
+      dateFormatted = formatFns(date, "H 'h' mm 'le' d MMMM", { timeZone });
     }
   } else {
     throw new Error("Unknown format");
