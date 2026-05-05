@@ -1,3 +1,24 @@
+/**
+ * @module
+ *
+ * The Journalism library (formatting functions)
+ *
+ * To install the library with Deno, use:
+ * ```bash
+ * deno add jsr:@nshiab/journalism-format
+ * ```
+ *
+ * To install the library with Node.js, use:
+ * ```bash
+ * npm i @nshiab/journalism-format
+ * ```
+ *
+ * To import a function, use:
+ * ```ts
+ * import { functionName } from "@nshiab/journalism-format";
+ * ```
+ */
+
 import formatDate from "./format/formatDate.ts";
 import formatNumber from "./format/formatNumber.ts";
 import round from "./format/round.ts";
