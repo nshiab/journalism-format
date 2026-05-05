@@ -5,7 +5,8 @@ easily formatting numbers, dates, and more. It's part of the
 [journalism library](https://github.com/nshiab/journalism).
 
 The library is available on [JSR](https://jsr.io/@nshiab/journalism-format) with
-its [documentation](https://jsr.io/@nshiab/journalism-format/doc).
+its [documentation](https://jsr.io/@nshiab/journalism-format/doc) and on
+[NPM](https://www.npmjs.com/package/@nshiab/journalism-format).
 
 The documentation is also available as the markdown file
 [llm.md](https://github.com/nshiab/journalism-format/blob/main/llm.md), which
@@ -26,15 +27,30 @@ journalist and senior data producer for [CBC News](https://www.cbc.ca/news).
 To install the library, you can use the following commands:
 
 ```bash
-# DENO
-deno install jsr:@nshiab/journalism-format
+# Deno
+deno add jsr:@nshiab/journalism-format
 
-# NODE.JS
-npx jsr add @nshiab/journalism-format
+# Node
+npm i @nshiab/journalism-format
 
-# BUN
-bunx jsr add @nshiab/journalism-format
+# Bun
+bun add @nshiab/journalism-format
+```
+
+To quickly set up a data project with essential folders, configurations, and
+documentation for AI agents, you can use
+[@nshiab/setup-data-project](https://github.com/nshiab/setup-data-project).
+
+```bash
+# Deno
+deno run -A jsr:@nshiab/setup-data-project
+
+# Node
+npx @nshiab/setup-data-project
+
+# Bun
+bunx @nshiab/setup-data-project
 ```
 
 If you wish to contribute, please check the
-[guidelines](https://github.com/nshiab/journalism-format/blob/main/CONTRIBUTING.md).
+[guidelines](https://github.com/nshiab/journalism-web-scraping/blob/main/CONTRIBUTING.md).
