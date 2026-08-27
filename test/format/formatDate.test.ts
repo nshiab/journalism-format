@@ -3,6 +3,7 @@ import formatDate from "../../src/format/formatDate.ts";
 
 const unix = 1672531200000;
 const date = new Date("2023-01-01T01:35:00.000Z");
+const dateInFebruary = new Date("2023-02-01T01:35:00.000Z");
 const datePM = new Date("2023-01-01T15:35:00.000Z");
 const dateNoMinutes = new Date("2023-01-01T01:00:00.000Z");
 const dateWithSeconds = new Date("2023-01-01T01:35:05.000Z");
@@ -167,22 +168,22 @@ Deno.test("should return the day without 0 padding", () => {
   assertEquals(formattedDate, "1");
 });
 Deno.test("should return the zero-padded month", () => {
-  const formattedDate = formatDate(date, "DD", { utc: true });
-  assertEquals(formattedDate, "01");
+  const formattedDate = formatDate(dateInFebruary, "MM", { utc: true });
+  assertEquals(formattedDate, "02");
 });
 Deno.test("should return the month without zero padding", () => {
-  const formattedDate = formatDate(date, "DD", {
+  const formattedDate = formatDate(dateInFebruary, "MM", {
     noZeroPadding: true,
     utc: true,
   });
-  assertEquals(formattedDate, "1");
+  assertEquals(formattedDate, "2");
 });
 Deno.test("should return the zero-padded month and abbreviations shouldn't change a thing", () => {
-  const formattedDate = formatDate(date, "DD", {
+  const formattedDate = formatDate(dateInFebruary, "MM", {
     abbreviations: true,
     utc: true,
   });
-  assertEquals(formattedDate, "01");
+  assertEquals(formattedDate, "02");
 });
 Deno.test("should return the year", () => {
   const formattedDate = formatDate(date, "YYYY", { utc: true });
@@ -417,24 +418,27 @@ Deno.test("should return the zero-padded day and abbreviations shouldn't change 
   assertEquals(formattedDate, "01");
 });
 Deno.test("should return the zero-padded month with RC style", () => {
-  const formattedDate = formatDate(date, "DD", { style: "rc", utc: true });
-  assertEquals(formattedDate, "01");
+  const formattedDate = formatDate(dateInFebruary, "MM", {
+    style: "rc",
+    utc: true,
+  });
+  assertEquals(formattedDate, "02");
 });
 Deno.test("should return the zero-padded month with RC style but without zero padding", () => {
-  const formattedDate = formatDate(date, "DD", {
+  const formattedDate = formatDate(dateInFebruary, "MM", {
     style: "rc",
     noZeroPadding: true,
     utc: true,
   });
-  assertEquals(formattedDate, "1");
+  assertEquals(formattedDate, "2");
 });
 Deno.test("should return the zero-padded month and abbreviations shouldn't change a thing with RC style", () => {
-  const formattedDate = formatDate(date, "DD", {
+  const formattedDate = formatDate(dateInFebruary, "MM", {
     style: "rc",
     abbreviations: true,
     utc: true,
   });
-  assertEquals(formattedDate, "01");
+  assertEquals(formattedDate, "02");
 });
 Deno.test("should return the year with RC style", () => {
   const formattedDate = formatDate(date, "YYYY", {

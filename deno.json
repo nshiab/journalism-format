@@ -8,7 +8,9 @@
     ".": "./src/index.ts"
   },
   "tasks": {
-    "all-tests": "deno install && deno fmt --check && deno lint && deno check src/index.ts && deno doc --lint src/index.ts && deno publish --allow-dirty --dry-run && TZ=America/Toronto deno test -A --fail-fast && deno task llm",
+    "all-tests": "deno install && deno fmt --check && deno lint && deno check src/index.ts && deno doc --lint src/index.ts && deno publish --allow-dirty --dry-run && deno task test && deno task test-time-zones && deno task llm",
+    "test": "EXPECTED_SYSTEM_TIME_ZONE=America/Toronto TZ=America/Toronto deno test -A --fail-fast",
+    "test-time-zones": "EXPECTED_SYSTEM_TIME_ZONE=UTC TZ=UTC deno test -A --fail-fast test/format/formatDateTZ.test.ts && EXPECTED_SYSTEM_TIME_ZONE=America/Vancouver TZ=America/Vancouver deno test -A --fail-fast test/format/formatDateTZ.test.ts",
     "llm": "deno run -A jsr:@nshiab/deno-docs-to-md && deno fmt llm.md",
     "test-coverage": "deno test -A --fail-fast --coverage=cov_profile && deno coverage cov_profile",
     "patch": "deno task all-tests && deno run -A jsr:@nshiab/bump-version patch",
@@ -26,10 +28,6 @@
     ]
   },
   "nodeModulesDir": "auto",
-  "imports": {
-    "d3-dsv": "npm:d3-dsv@^3.0.1",
-    "date-fns-tz": "npm:date-fns-tz@^3.2.0"
-  },
   "compilerOptions": {
     "lib": [
       "dom",

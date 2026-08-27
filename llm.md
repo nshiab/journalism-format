@@ -168,9 +168,9 @@ console.log(singleChar); // "A"
 Converts an array of objects into a CSV (Comma-Separated Values) string.
 
 The function takes an array of objects and returns a string in CSV format. The
-first line of the string will be the headers, which are derived from the keys of
-the first object in the array. Each subsequent line will represent an object,
-with the values in the same order as the headers.
+first line contains the union of keys found across all objects, in discovery
+order. Each subsequent line represents an object, with values in the same order
+as the headers.
 
 ### Signature
 
@@ -180,8 +180,8 @@ function dataAsCsv(arrayOfObjects: Record<string, unknown>[]): string;
 
 ### Parameters
 
-- **`data`**: An array of objects to be converted. All objects in the array
-  should have the same keys.
+- **`arrayOfObjects`**: The objects to convert. Rows may have different keys;
+  columns are inferred from all rows.
 
 ### Returns
 
