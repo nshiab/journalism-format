@@ -15,13 +15,15 @@ function formatCsvDate(date: Date): string {
   const minutes = date.getUTCMinutes();
   const seconds = date.getUTCSeconds();
   const milliseconds = date.getUTCMilliseconds();
-  const day = formatYear(date.getUTCFullYear()) + "-" +
-    pad(date.getUTCMonth() + 1, 2) + "-" + pad(date.getUTCDate(), 2);
+  const day =
+    formatYear(date.getUTCFullYear()) +
+    "-" +
+    pad(date.getUTCMonth() + 1, 2) +
+    "-" +
+    pad(date.getUTCDate(), 2);
 
   if (milliseconds !== 0) {
-    return `${day}T${pad(hours, 2)}:${pad(minutes, 2)}:${pad(seconds, 2)}.${
-      pad(milliseconds, 3)
-    }Z`;
+    return `${day}T${pad(hours, 2)}:${pad(minutes, 2)}:${pad(seconds, 2)}.${pad(milliseconds, 3)}Z`;
   }
   if (seconds !== 0) {
     return `${day}T${pad(hours, 2)}:${pad(minutes, 2)}:${pad(seconds, 2)}Z`;
@@ -34,7 +36,17 @@ function formatCsvDate(date: Date): string {
 
 function formatCsvValue(value: unknown): string {
   if (value === null || value === undefined) return "";
-  const string = value instanceof Date ? formatCsvDate(value) : String(value);
+  const string =
+    value instanceof Date
+      ? formatCsvDate(value)
+      : typeof value === "string" ||
+          typeof value === "number" ||
+          typeof value === "boolean" ||
+          typeof value === "bigint" ||
+          typeof value === "symbol" ||
+          typeof value === "function"
+        ? String(value)
+        : (JSON.stringify(value) ?? "");
   return /[",\n\r]/.test(string) ? `"${string.replace(/"/g, '""')}"` : string;
 }
 
@@ -56,10 +68,8 @@ function inferColumns(rows: { [key: string]: unknown }[]): string[] {
  *
  * The function takes an array of objects and returns a string in CSV format. The first line contains the union of keys found across all objects, in discovery order. Each subsequent line represents an object, with values in the same order as the headers.
  *
- * @param arrayOfObjects The objects to convert. Rows may have different keys;
- * columns are inferred from all rows.
- *
- * @returns A string representing the data in CSV format.
+ * Object and array values are serialized as JSON before CSV escaping. Date values
+ * retain their UTC date formatting, and null or undefined values become empty cells.
  *
  * @example
  * ```ts
@@ -76,16 +86,15 @@ function inferColumns(rows: { [key: string]: unknown }[]): string[] {
  * // Expected output:
  * // "make,model,year\nToyota,Camry,2021\nHonda,Accord,2022\nFord,Mustang,2020"
  * ```
+ * @param arrayOfObjects The objects to convert. Rows may have different keys;
+ * columns are inferred from all rows.
+ * @returns A string representing the data in CSV format.
  * @category Formatting
  */
-export default function dataAsCsv(
-  arrayOfObjects: { [key: string]: unknown }[],
-): string {
+export default function dataAsCsv(arrayOfObjects: { [key: string]: unknown }[]): string {
   const columns = inferColumns(arrayOfObjects);
   return [
     columns.map(formatCsvValue).join(","),
-    ...arrayOfObjects.map((row) =>
-      columns.map((column) => formatCsvValue(row[column])).join(",")
-    ),
+    ...arrayOfObjects.map((row) => columns.map((column) => formatCsvValue(row[column])).join(",")),
   ].join("\n");
 }

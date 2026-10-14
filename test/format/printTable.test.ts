@@ -1,13 +1,13 @@
-import { assertEquals } from "jsr:@std/assert";
+import { expect, test } from "vite-plus/test";
 import printTable from "../../src/format/printTable.ts";
 
-Deno.test("printTable should print empty table message for empty array", () => {
+test("printTable should print empty table message for empty array", () => {
   // This test just verifies it doesn't throw
   printTable([]);
-  assertEquals(true, true);
+  expect(true).toStrictEqual(true);
 });
 
-Deno.test("printTable should print a simple table", () => {
+test("printTable should print a simple table", () => {
   const data = [
     { name: "Alice", age: 30 },
     { name: "Bob", age: 25 },
@@ -15,20 +15,20 @@ Deno.test("printTable should print a simple table", () => {
 
   // This test just verifies it doesn't throw
   printTable(data);
-  assertEquals(true, true);
+  expect(true).toStrictEqual(true);
 });
 
-Deno.test("printTable should handle null values", () => {
+test("printTable should handle null values", () => {
   const data = [
     { name: "Alice", value: null },
     { name: "Bob", value: 123 },
   ];
 
   printTable(data);
-  assertEquals(true, true);
+  expect(true).toStrictEqual(true);
 });
 
-Deno.test("printTable should handle long text with wrapping", () => {
+test("printTable should handle long text with wrapping", () => {
   const data = [
     {
       name: "Alice",
@@ -38,70 +38,65 @@ Deno.test("printTable should handle long text with wrapping", () => {
   ];
 
   printTable(data, { maxColumnWidth: 20 });
-  assertEquals(true, true);
+  expect(true).toStrictEqual(true);
 });
 
-Deno.test("printTable should handle text with newlines", () => {
+test("printTable should handle text with newlines", () => {
   const data = [
     { name: "Alice", notes: "Line 1\nLine 2\nLine 3" },
     { name: "Bob", notes: "Single line" },
   ];
 
   printTable(data);
-  assertEquals(true, true);
+  expect(true).toStrictEqual(true);
 });
 
-Deno.test("printTable should handle boolean values", () => {
+test("printTable should handle boolean values", () => {
   const data = [
     { name: "Alice", active: true },
     { name: "Bob", active: false },
   ];
 
   printTable(data);
-  assertEquals(true, true);
+  expect(true).toStrictEqual(true);
 });
 
-Deno.test("printTable should handle Date objects", () => {
+test("printTable should handle Date objects", () => {
   const data = [
     { name: "Alice", created: new Date("2024-01-01") },
     { name: "Bob", created: new Date("2024-02-01") },
   ];
 
   printTable(data);
-  assertEquals(true, true);
+  expect(true).toStrictEqual(true);
 });
 
-Deno.test("printTable should respect maxColumnWidth option", () => {
+test("printTable should respect maxColumnWidth option", () => {
   const data = [
     {
       name: "Alice",
-      description:
-        "This is a very long description that should be wrapped at the specified width",
+      description: "This is a very long description that should be wrapped at the specified width",
     },
   ];
 
   printTable(data, { maxColumnWidth: 30 });
-  assertEquals(true, true);
+  expect(true).toStrictEqual(true);
 });
 
-Deno.test("printTable should respect minColumnWidth option", () => {
-  const data = [
-    { a: "1", b: "2" },
-  ];
+test("printTable should respect minColumnWidth option", () => {
+  const data = [{ a: "1", b: "2" }];
 
   printTable(data, { minColumnWidth: 10 });
-  assertEquals(true, true);
+  expect(true).toStrictEqual(true);
 });
 
-Deno.test("printTable should handle mixed data types", () => {
-  const data = [
-    { str: "text", num: 123, bool: true, nul: null, date: new Date() },
-  ];
+test("printTable should handle mixed data types", () => {
+  const data = [{ str: "text", num: 123, bool: true, nul: null, date: new Date() }];
 
   printTable(data);
-  assertEquals(true, true);
+  expect(true).toStrictEqual(true);
 });
-Deno.test("printTable should add horizontal borders when word wrapping occurs", () => {
+test("printTable should add horizontal borders when word wrapping occurs", () => {
   const data = [
     {
       name: "Alice",
@@ -118,5 +113,5 @@ Deno.test("printTable should add horizontal borders when word wrapping occurs", 
 
   // With word wrapping, horizontal borders should be added between rows
   printTable(data, { maxColumnWidth: 25 });
-  assertEquals(true, true);
+  expect(true).toStrictEqual(true);
 });

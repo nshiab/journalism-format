@@ -1,57 +1,96 @@
-# The Journalism library (formatting functions)
+**Journalism Format v1.1.10**
 
-To install the library with Deno, use:
+***
+
+# The Journalism Library (format functions)
+
+Useful TypeScript functions for journalism projects. This library focuses on
+easily formatting numbers, dates, and more. It's part of the
+[journalism library](https://github.com/nshiab/journalism).
+
+The library is available on
+[npm](https://www.npmjs.com/package/@nshiab/journalism-format), with
+[documentation](https://nshiab.github.io/journalism-format/) on GitHub Pages.
+
+The documentation is also available as
+[llms.txt](https://nshiab.github.io/journalism-format/llms.txt), an index of the
+individual documentation pages for AI agents, and
+[llm.md](https://nshiab.github.io/journalism-format/llm.md), a complete Markdown
+reference for AI coding assistants or offline reading.
+
+The library is maintained by [Nael Shiab](http://naelshiab.com/), computational
+journalist and senior data producer for [CBC News](https://www.cbc.ca/news).
+
+> [!TIP]
+> To learn how to use this library and more, check out
+> [Code Like a Journalist](https://www.code-like-a-journalist.com/), a free and
+> open-source data analysis and data visualization course in TypeScript. You
+> might also find the
+> [simple-data-analysis library](https://github.com/nshiab/simple-data-analysis)
+> interesting.
+
+Requires **Node.js 24.21.0 or later**. Use `import` and set `"type": "module"`
+in your project's `package.json`.
 
 ```bash
-deno add jsr:@nshiab/journalism-format
+npm install @nshiab/journalism-format
 ```
-
-To install the library with Node.js, use:
-
-```bash
-npm i @nshiab/journalism-format
-```
-
-To import a function, use:
 
 ```ts
-import { functionName } from "@nshiab/journalism-format";
+import { formatNumber } from "@nshiab/journalism-format";
+
+console.log(formatNumber(1234.56)); // "1,234.56"
 ```
 
-## arraysToData
+To quickly set up a data project with essential folders, configurations, and
+documentation for AI agents, you can use
+[@nshiab/setup-data-project](https://github.com/nshiab/setup-data-project).
 
-Transforms an object of arrays into an array of objects. This function is useful
-for converting data from a columnar format to a row-based format, which is
-common in data processing and visualization.
+```bash
+npx @nshiab/setup-data-project
+```
+
+If you wish to contribute, please check the
+[guidelines](https://github.com/nshiab/journalism-format/blob/main/CONTRIBUTING.md).
+
+## Formatting
+
+### arraysToData()
+
+> **arraysToData**\<`T`\>(`data`): \{ \[K in string \| number \| symbol\]: T\[K\]\[number\] \}[]
+
+Transforms an object of arrays into an array of objects. This function is useful for converting data from a columnar format to a row-based format, which is common in data processing and visualization.
 
 It is assumed that all arrays in the input object have the same length.
 
-### Signature
+#### Type Parameters
 
-```typescript
-function arraysToData<T extends Record<string, unknown[]>>(
-  data: T,
-): Array<{ [K in keyof T]: T[K][number] }>;
-```
+##### T
 
-### Parameters
+`T` *extends* `Record`\<`string`, `unknown`[]\>
 
-- **`data`**: An object where each key is a string and its corresponding value
-  is an array of any type. All arrays are expected to have the same length.
+#### Parameters
 
-### Returns
+##### data
 
-An array of objects, where each object is a "row" of data created by combining
-values from the input arrays at the same index.
+`T`
 
-### Examples
+An object where each key is a string and its corresponding value is an array of any type. All arrays are expected to have the same length.
+
+#### Returns
+
+\{ \[K in string \| number \| symbol\]: T\[K\]\[number\] \}[]
+
+An array of objects, where each object is a "row" of data created by combining values from the input arrays at the same index.
+
+#### Examples
 
 ```ts
 // Basic usage with mixed data types
 const columnarData = {
-  name: ["Alice", "Bob", "Charlie"],
+  name: ['Alice', 'Bob', 'Charlie'],
   age: [30, 25, 35],
-  city: ["New York", "London", "Paris"],
+  city: ['New York', 'London', 'Paris']
 };
 
 const rowData = arraysToData(columnarData);
@@ -69,7 +108,7 @@ console.log(rowData);
 // Usage with numerical data for charting
 const chartData = {
   x: [1, 2, 3, 4, 5],
-  y: [10, 20, 15, 25, 30],
+  y: [10, 20, 15, 25, 30]
 };
 
 const plotPoints = arraysToData(chartData);
@@ -85,27 +124,29 @@ console.log(plotPoints);
 // ]
 ```
 
-## camelCase
+***
 
-Converts a string into camelCase. This is useful for creating variable names or
-object keys from human-readable text.
+### camelCase()
 
-### Signature
+> **camelCase**(`input`): `string`
 
-```typescript
-function camelCase(input: string): string;
-```
+Converts a string into camelCase. This is useful for creating variable names or object keys from human-readable text.
 
-### Parameters
+#### Parameters
 
-- **`input`**: The string to convert to camelCase. It can contain spaces,
-  punctuation, and mixed casing.
+##### input
 
-### Returns
+`string`
+
+The string to convert to camelCase. It can contain spaces, punctuation, and mixed casing.
+
+#### Returns
+
+`string`
 
 The camelCased version of the input string.
 
-### Examples
+#### Examples
 
 ```ts
 // Basic conversion
@@ -125,25 +166,29 @@ const result3 = camelCase("Journalism");
 console.log(result3); // "journalism"
 ```
 
-## capitalize
+***
+
+### capitalize()
+
+> **capitalize**(`string`): `string`
 
 Capitalizes the first letter of a given string.
 
-### Signature
+#### Parameters
 
-```typescript
-function capitalize(string: string): string;
-```
+##### string
 
-### Parameters
+`string`
 
-- **`input`**: The string to be capitalized.
+The string to be capitalized.
 
-### Returns
+#### Returns
+
+`string`
 
 A new string with the first letter in uppercase.
 
-### Examples
+#### Examples
 
 ```ts
 // Basic usage
@@ -163,38 +208,42 @@ const singleChar = capitalize("a");
 console.log(singleChar); // "A"
 ```
 
-## dataAsCsv
+***
+
+### dataAsCsv()
+
+> **dataAsCsv**(`arrayOfObjects`): `string`
 
 Converts an array of objects into a CSV (Comma-Separated Values) string.
 
-The function takes an array of objects and returns a string in CSV format. The
-first line contains the union of keys found across all objects, in discovery
-order. Each subsequent line represents an object, with values in the same order
-as the headers.
+The function takes an array of objects and returns a string in CSV format. The first line contains the union of keys found across all objects, in discovery order. Each subsequent line represents an object, with values in the same order as the headers.
 
-### Signature
+Object and array values are serialized as JSON before CSV escaping. Date values
+retain their UTC date formatting, and null or undefined values become empty cells.
 
-```typescript
-function dataAsCsv(arrayOfObjects: Record<string, unknown>[]): string;
-```
+#### Parameters
 
-### Parameters
+##### arrayOfObjects
 
-- **`arrayOfObjects`**: The objects to convert. Rows may have different keys;
-  columns are inferred from all rows.
+`object`[]
 
-### Returns
+The objects to convert. Rows may have different keys;
+columns are inferred from all rows.
+
+#### Returns
+
+`string`
 
 A string representing the data in CSV format.
 
-### Examples
+#### Example
 
 ```ts
 // Basic usage with a simple dataset
 const dataset = [
   { make: "Toyota", model: "Camry", year: 2021 },
   { make: "Honda", model: "Accord", year: 2022 },
-  { make: "Ford", model: "Mustang", year: 2020 },
+  { make: "Ford", model: "Mustang", year: 2020 }
 ];
 
 const csvString = dataAsCsv(dataset);
@@ -204,38 +253,42 @@ console.log(csvString);
 // "make,model,year\nToyota,Camry,2021\nHonda,Accord,2022\nFord,Mustang,2020"
 ```
 
-## dataToArrays
+***
 
-Transforms an array of objects into an object of arrays. This function is the
-inverse of `arraysToData` and is useful for converting data from a row-based
-format to a columnar format.
+### dataToArrays()
 
-### Signature
+> **dataToArrays**\<`T`\>(`data`): \{ \[K in string \| number \| symbol\]: T\[K\]\[\] \}
 
-```typescript
-function dataToArrays<T extends Record<string, unknown>>(
-  data: T[],
-): { [K in keyof T]: T[K][] };
-```
+Transforms an array of objects into an object of arrays. This function is the inverse of `arraysToData` and is useful for converting data from a row-based format to a columnar format.
 
-### Parameters
+#### Type Parameters
 
-- **`data`**: An array of objects. Each object is expected to have the same set
-  of keys.
+##### T
 
-### Returns
+`T` *extends* `Record`\<`string`, `unknown`\>
 
-An object where each key maps to an array of values, effectively representing
-the data in a columnar format.
+#### Parameters
 
-### Examples
+##### data
+
+`T`[]
+
+An array of objects. Each object is expected to have the same set of keys.
+
+#### Returns
+
+\{ \[K in string \| number \| symbol\]: T\[K\]\[\] \}
+
+An object where each key maps to an array of values, effectively representing the data in a columnar format.
+
+#### Examples
 
 ```ts
 // Basic usage with a simple dataset
 const rowData = [
-  { name: "Alice", age: 30, city: "New York" },
-  { name: "Bob", age: 25, city: "London" },
-  { name: "Charlie", age: 35, city: "Paris" },
+  { name: 'Alice', age: 30, city: 'New York' },
+  { name: 'Bob', age: 25, city: 'London' },
+  { name: 'Charlie', age: 35, city: 'Paris' }
 ];
 
 const columnarData = dataToArrays(rowData);
@@ -254,7 +307,7 @@ console.log(columnarData);
 const measurements = [
   { id: 1, temp: 20, humidity: 60 },
   { id: 2, temp: 22, humidity: 65 },
-  { id: 3, temp: 18, humidity: 55 },
+  { id: 3, temp: 18, humidity: 55 }
 ];
 
 const separatedVariables = dataToArrays(measurements);
@@ -268,95 +321,80 @@ console.log(separatedVariables);
 // }
 ```
 
-## formatDate
+***
 
-Formats a `Date` object into a human-readable string based on a specified
-format, style, and time zone. This function provides flexible date and time
-formatting options, including support for UTC, different linguistic styles
-(English/French), and various display preferences like abbreviations and
-zero-padding.
+### formatDate()
 
-### Signature
+> **formatDate**(`date`, `format`, `options?`): `string`
 
-```typescript
-function formatDate(
-  date: Date,
-  format:
-    | "YYYY-MM-DD"
-    | "YYYY-MM-DD HH:MM:SS TZ"
-    | "DayOfWeek, Month Day"
-    | "Month DD"
-    | "Month DD, HH:MM period"
-    | "Month DD, HH:MM period TZ"
-    | "DayOfWeek, HH:MM period"
-    | "DayOfWeek, HH:MM period TZ"
-    | "Month DD, YYYY"
-    | "Month DD, YYYY, at HH:MM period"
-    | "Month DD, YYYY, at HH:MM period TZ"
-    | "DayOfWeek"
-    | "Month"
-    | "YYYY"
-    | "MM"
-    | "DD"
-    | "HH:MM period"
-    | "HH:MM period TZ"
-    | "HH:MM period TZ on Month DD, YYYY"
-    | "HH:MM period on Month DD, YYYY"
-    | "HH:MM period TZ on Month DD"
-    | "HH:MM period on Month DD",
-  options?: {
-    utc?: boolean;
-    style?: "cbc" | "rc";
-    abbreviations?: boolean;
-    noZeroPadding?: boolean;
-    threeLetterMonth?: boolean;
-    timeZone?:
-      | "Canada/Atlantic"
-      | "Canada/Central"
-      | "Canada/Eastern"
-      | "Canada/Mountain"
-      | "Canada/Newfoundland"
-      | "Canada/Pacific"
-      | "Canada/Saskatchewan"
-      | "Canada/Yukon";
-  },
-): string;
-```
+Formats a `Date` object into a human-readable string based on a specified format, style, and time zone. This function provides flexible date and time formatting options, including support for UTC, different linguistic styles (English/French), and various display preferences like abbreviations and zero-padding.
 
-### Parameters
+#### Parameters
 
-- **`date`**: The `Date` object to be formatted.
-- **`format`**: A predefined string literal specifying the desired output
-  format. Examples include "YYYY-MM-DD", "Month DD, YYYY", "HH:MM period", etc.
-- **`options`**: Optional settings to customize the formatting behavior.
-- **`options.utc`**: If `true`, the date will be formatted in UTC (Coordinated
-  Universal Time). Defaults to `false`.
-- **`options.style`**: The linguistic style for formatting. Use "cbc" for
-  English (default) or "rc" for French. This affects month and day names, and
-  time representations.
-- **`options.abbreviations`**: If `true`, month and day names will be
-  abbreviated (e.g., "Jan.", "Mon."). Defaults to `false`.
-- **`options.noZeroPadding`**: If `true`, single-digit days and months will not
-  be padded with a leading zero (e.g., "1" instead of "01"). Defaults to
-  `false`.
-- **`options.threeLetterMonth`**: If `true`, month abbreviations will be three
-  letters (e.g., "Jan", "Feb"). Defaults to `false`.
-- **`options.timeZone`**: Specifies a time zone for formatting. Accepts standard
-  IANA time zone names (e.g., "America/New_York") or specific Canadian time
-  zones. If `utc` is `true`, this option is ignored.
+##### date
 
-### Returns
+`Date`
+
+The `Date` object to be formatted.
+
+##### format
+
+`"MM"` \| `"YYYY-MM-DD"` \| `"YYYY-MM-DD HH:MM:SS TZ"` \| `"DayOfWeek, Month Day"` \| `"Month DD"` \| `"Month DD, HH:MM period"` \| `"Month DD, HH:MM period TZ"` \| `"DayOfWeek, HH:MM period"` \| `"DayOfWeek, HH:MM period TZ"` \| `"Month DD, YYYY"` \| `"Month DD, YYYY, at HH:MM period"` \| `"Month DD, YYYY, at HH:MM period TZ"` \| `"DayOfWeek"` \| `"Month"` \| `"YYYY"` \| `"DD"` \| `"HH:MM period"` \| `"HH:MM period TZ"` \| `"HH:MM period TZ on Month DD, YYYY"` \| `"HH:MM period on Month DD, YYYY"` \| `"HH:MM period TZ on Month DD"` \| `"HH:MM period on Month DD"`
+
+A predefined string literal specifying the desired output format. Examples include "YYYY-MM-DD", "Month DD, YYYY", "HH:MM period", etc.
+
+##### options?
+
+Optional settings to customize the formatting behavior.
+
+###### abbreviations?
+
+`boolean`
+
+If `true`, month and day names will be abbreviated (e.g., "Jan.", "Mon."). Defaults to `false`.
+
+###### noZeroPadding?
+
+`boolean`
+
+If `true`, single-digit days and months will not be padded with a leading zero (e.g., "1" instead of "01"). Defaults to `false`.
+
+###### style?
+
+`"cbc"` \| `"rc"`
+
+The linguistic style for formatting. Use "cbc" for English (default) or "rc" for French. This affects month and day names, and time representations.
+
+###### threeLetterMonth?
+
+`boolean`
+
+If `true`, month abbreviations will be three letters (e.g., "Jan", "Feb"). Defaults to `false`.
+
+###### timeZone?
+
+`"Canada/Atlantic"` \| `"Canada/Central"` \| `"Canada/Eastern"` \| `"Canada/Mountain"` \| `"Canada/Newfoundland"` \| `"Canada/Pacific"` \| `"Canada/Saskatchewan"` \| `"Canada/Yukon"`
+
+Specifies a time zone for formatting. Accepts standard IANA time zone names (e.g., "America/New_York") or specific Canadian time zones. If `utc` is `true`, this option is ignored.
+
+###### utc?
+
+`boolean`
+
+If `true`, the date will be formatted in UTC (Coordinated Universal Time). Defaults to `false`.
+
+#### Returns
+
+`string`
 
 The formatted date string.
 
-### Examples
+#### Examples
 
 ```ts
 // Basic usage: Format a date in default English style.
 const date = new Date("2023-01-01T01:35:00.000Z");
-const formatted = formatDate(date, "Month DD, YYYY, at HH:MM period", {
-  utc: true,
-});
+const formatted = formatDate(date, "Month DD, YYYY, at HH:MM period", { utc: true });
 console.log(formatted); // "January 1, 2023, at 1:35 a.m."
 ```
 
@@ -365,7 +403,7 @@ console.log(formatted); // "January 1, 2023, at 1:35 a.m."
 const frenchFormatted = formatDate(date, "Month DD, YYYY, at HH:MM period", {
   style: "rc",
   abbreviations: true,
-  utc: true,
+  utc: true
 });
 console.log(frenchFormatted); // "1 janv. 2023 à 1 h 35"
 ```
@@ -373,7 +411,7 @@ console.log(frenchFormatted); // "1 janv. 2023 à 1 h 35"
 ```ts
 // Formatting with a specific time zone.
 const estFormatted = formatDate(date, "Month DD, YYYY, at HH:MM period TZ", {
-  timeZone: "Canada/Eastern",
+  timeZone: "Canada/Eastern"
 });
 console.log(estFormatted); // "January 1, 2023, at 8:35 p.m. EST" (assuming date is UTC)
 ```
@@ -384,67 +422,101 @@ const isoFormatted = formatDate(new Date("2024-03-15T10:00:00Z"), "YYYY-MM-DD");
 console.log(isoFormatted); // "2024-03-15"
 ```
 
-## formatNumber
+***
 
-Formats a number according to specified style, rounding, and display options.
-This versatile function can handle various numerical formatting needs.
+### formatNumber()
 
-The function supports two main styles: "cbc" (Canadian Broadcasting Corporation
-style, typically English) and "rc" (Radio-Canada style, typically French), which
-dictate the thousands separator and decimal marker.
+> **formatNumber**(`number`, `options?`): `string`
 
-### Signature
+Formats a number according to specified style, rounding, and display options. This versatile function can handle various numerical formatting needs.
 
-```typescript
-function formatNumber(
-  number: number,
-  options?: {
-    style?: "cbc" | "rc";
-    sign?: boolean;
-    round?: boolean;
-    decimals?: number;
-    significantDigits?: number;
-    fixed?: boolean;
-    nearestInteger?: number;
-    abbreviation?: boolean;
-    prefix?: string;
-    suffix?: string;
-    position?: boolean;
-  },
-): string;
-```
+The function supports two main styles: "cbc" (Canadian Broadcasting Corporation style, typically English) and "rc" (Radio-Canada style, typically French), which dictate the thousands separator and decimal marker.
 
-### Parameters
+#### Parameters
 
-- **`number`**: The number to be formatted.
-- **`options`**: An object containing various formatting options.
-- **`options.style`**: The formatting style to apply. Can be "cbc" (default,
-  typically English with comma thousands separator and dot decimal) or "rc"
-  (typically French with space thousands separator and comma decimal).
-- **`options.sign`**: If `true`, a "+" sign will be prepended to positive
-  numbers. Negative numbers always retain their "-" sign. Defaults to `false`.
-- **`options.round`**: If `true`, the number will be rounded to the nearest
-  integer or based on `decimals`, `significantDigits`, or `nearestInteger`
-  options. Defaults to `false`.
-- **`options.decimals`**: The number of decimal places to round to.
-- **`options.significantDigits`**: The number of significant digits to round to.
-- **`options.fixed`**: If `true`, the number will be displayed with a fixed
-  number of decimal places as specified by `decimals`, padding with zeros if
-  necessary. Defaults to `false`.
-- **`options.nearestInteger`**: The base to which the number should be rounded
-  (e.g., 10 for rounding to the nearest ten, 100 for nearest hundred).
-- **`options.abbreviation`**: If `true`, the number will be abbreviated (e.g.,
-  1,200,000 becomes "1.2M"). Defaults to `false`.
-- **`options.prefix`**: A string to prepend before the formatted number.
-- **`options.suffix`**: A string to append after the formatted number.
-- **`options.position`**: If `true`, formats the number as an ordinal position
-  (e.g., "1st", "2nd" in English, "1er", "2e" in French).
+##### number
 
-### Returns
+`number`
+
+The number to be formatted.
+
+##### options?
+
+An object containing various formatting options.
+
+###### abbreviation?
+
+`boolean`
+
+If `true`, the number will be abbreviated (e.g., 1,200,000 becomes "1.2M"). Defaults to `false`.
+
+###### decimals?
+
+`number`
+
+The number of decimal places to round to.
+
+###### fixed?
+
+`boolean`
+
+If `true`, the number will be displayed with a fixed number of decimal places as specified by `decimals`, padding with zeros if necessary. Defaults to `false`.
+
+###### nearestInteger?
+
+`number`
+
+The base to which the number should be rounded (e.g., 10 for rounding to the nearest ten, 100 for nearest hundred).
+
+###### position?
+
+`boolean`
+
+If `true`, formats the number as an ordinal position (e.g., "1st", "2nd" in English, "1er", "2e" in French).
+
+###### prefix?
+
+`string`
+
+A string to prepend before the formatted number.
+
+###### round?
+
+`boolean`
+
+If `true`, the number will be rounded to the nearest integer or based on `decimals`, `significantDigits`, or `nearestInteger` options. Defaults to `false`.
+
+###### sign?
+
+`boolean`
+
+If `true`, a "+" sign will be prepended to positive numbers. Negative numbers always retain their "-" sign. Defaults to `false`.
+
+###### significantDigits?
+
+`number`
+
+The number of significant digits to round to.
+
+###### style?
+
+`"cbc"` \| `"rc"`
+
+The formatting style to apply. Can be "cbc" (default, typically English with comma thousands separator and dot decimal) or "rc" (typically French with space thousands separator and comma decimal).
+
+###### suffix?
+
+`string`
+
+A string to append after the formatted number.
+
+#### Returns
+
+`string`
 
 The formatted number as a string.
 
-### Examples
+#### Examples
 
 ```ts
 // Basic usage: Format a number with thousands separator.
@@ -466,12 +538,7 @@ console.log(num3); // "1,2 M"
 
 ```ts
 // Fixed number of decimals with prefix and suffix.
-const num4 = formatNumber(98.765, {
-  decimals: 2,
-  fixed: true,
-  prefix: "$",
-  suffix: " CAD",
-});
+const num4 = formatNumber(98.765, { decimals: 2, fixed: true, prefix: "$", suffix: " CAD" });
 console.log(num4); // "$98.77 CAD"
 ```
 
@@ -484,34 +551,39 @@ const position2 = formatNumber(2, { position: true, style: "rc" });
 console.log(position2); // "2e"
 ```
 
-## normalizeString
+***
 
-Normalizes a string by converting it to lowercase, stripping accents,
-punctuation (optional), and trimming whitespace.
+### normalizeString()
 
-### Signature
+> **normalizeString**(`string`, `options?`): `string`
 
-```typescript
-function normalizeString(
-  string: string,
-  options?: { stripPunctuation?: boolean },
-): string;
-```
+Normalizes a string by converting it to lowercase, stripping accents, punctuation (optional), and trimming whitespace.
 
-### Parameters
+#### Parameters
 
-- **`string`**: The string to be normalized.
-- **`options`**: An optional object with options.
-- **`options.stripPunctuation`**: If true, punctuation and underscores will be
-  stripped. Defaults to true.
+##### string
 
-### Returns
+`string`
 
-A new string with characters in lowercase, without accents, without punctuation
-(if specified), with single spaces between words, and without leading or
-trailing whitespace.
+The string to be normalized.
 
-### Examples
+##### options?
+
+An optional object with options.
+
+###### stripPunctuation?
+
+`boolean`
+
+If true, punctuation and underscores will be stripped. Defaults to true.
+
+#### Returns
+
+`string`
+
+A new string with characters in lowercase, without accents, without punctuation (if specified), with single spaces between words, and without leading or trailing whitespace.
+
+#### Examples
 
 ```ts
 // Basic usage (strips punctuation by default)
@@ -549,54 +621,59 @@ const normalized = normalizeString("email@example.com");
 console.log(normalized); // "emailexamplecom"
 ```
 
-## prettyDuration
+***
 
-Formats a duration into a human-readable string, breaking it down into years,
-months, days, hours, minutes, seconds, and milliseconds. This function is useful
-for displaying elapsed time in a user-friendly format, such as for performance
-logging, task completion times, or general time tracking.
+### prettyDuration()
 
-The function can calculate the duration from a given start time to the current
-time, or between a specified start and end time. It provides options for logging
-the output directly to the console and adding custom prefixes or suffixes to the
-formatted string. Note that for simplicity, months are approximated as 30 days
-and years as 365 days.
+> **prettyDuration**(`start`, `options?`): `string`
 
-### Signature
+Formats a duration into a human-readable string, breaking it down into years, months, days, hours, minutes, seconds, and milliseconds. This function is useful for displaying elapsed time in a user-friendly format, such as for performance logging, task completion times, or general time tracking.
 
-```typescript
-function prettyDuration(
-  start: Date | number,
-  options?: {
-    log?: boolean;
-    end?: Date | number;
-    prefix?: string;
-    suffix?: string;
-  },
-): string;
-```
+The function can calculate the duration from a given start time to the current time, or between a specified start and end time. It provides options for logging the output directly to the console and adding custom prefixes or suffixes to the formatted string. Note that for simplicity, months are approximated as 30 days and years as 365 days.
 
-### Parameters
+#### Parameters
 
-- **`start`**: The starting point of the duration. This can be a `Date` object
-  or a Unix timestamp (number of milliseconds since epoch).
-- **`options`**: Optional settings to customize the duration formatting and
-  output.
-- **`options.log`**: If `true`, the formatted duration string will be logged to
-  the console. Defaults to `false`.
-- **`options.end`**: The ending point of the duration. This can be a `Date`
-  object or a Unix timestamp. If omitted, the current time (`Date.now()`) will
-  be used as the end point.
-- **`options.prefix`**: A string to prepend to the formatted duration string
-  (e.g., "Elapsed time: ").
-- **`options.suffix`**: A string to append to the formatted duration string
-  (e.g., " (Task completed)").
+##### start
 
-### Returns
+`number` \| `Date`
+
+The starting point of the duration. This can be a `Date` object or a Unix timestamp (number of milliseconds since epoch).
+
+##### options?
+
+Optional settings to customize the duration formatting and output.
+
+###### end?
+
+`number` \| `Date`
+
+The ending point of the duration. This can be a `Date` object or a Unix timestamp. If omitted, the current time (`Date.now()`) will be used as the end point.
+
+###### log?
+
+`boolean`
+
+If `true`, the formatted duration string will be logged to the console. Defaults to `false`.
+
+###### prefix?
+
+`string`
+
+A string to prepend to the formatted duration string (e.g., "Elapsed time: ").
+
+###### suffix?
+
+`string`
+
+A string to append to the formatted duration string (e.g., " (Task completed)").
+
+#### Returns
+
+`string`
 
 A human-readable string representing the duration.
 
-### Examples
+#### Examples
 
 ```ts
 // A starting Date somewhere in your code.
@@ -619,11 +696,7 @@ prettyDuration(startDateForLog, { log: true });
 // You can also use a prefix and/or suffix for the output string.
 const startDateWithPrefixSuffix = new Date();
 // ... some operations ...
-prettyDuration(startDateWithPrefixSuffix, {
-  log: true,
-  prefix: "Elapsed time: ",
-  suffix: " (Main function)",
-});
+prettyDuration(startDateWithPrefixSuffix, { log: true, prefix: "Elapsed time: ", suffix: " (Main function)" });
 // Returns and logs something like "Total duration: 3 min, 15 sec, 3 ms (Main function)"
 ```
 
@@ -635,54 +708,60 @@ const specificDuration = prettyDuration(start, { end });
 console.log(specificDuration); // Returns "22 days, 6 h, 3 min, 15 sec, 0 ms"
 ```
 
-## printTable
+***
 
-Prints a formatted table to the console with support for word wrapping within
-cells. Unlike console.table(), this function properly handles multi-line content
-within cells, making it ideal for displaying data with long text values.
+### printTable()
 
-This function has been created for the
-[simple-data-analysis library](https://github.com/nshiab/simple-data-analysis),
-but can be used independently for any array of objects.
+> **printTable**(`data`, `options?`): `void`
 
-### Signature
+Prints a formatted table to the console with support for word wrapping within cells.
+Unlike console.table(), this function properly handles multi-line content within cells,
+making it ideal for displaying data with long text values.
 
-```typescript
-function printTable(
-  data: Record<string, unknown>[],
-  options?: {
-    maxColumnWidth?: number;
-    minColumnWidth?: number;
-    typesRowIndex?: number;
-  },
-): void;
-```
+This function has been created for the [simple-data-analysis library](https://github.com/nshiab/simple-data-analysis), but can be used independently for any array of objects.
 
-### Parameters
+#### Parameters
 
-- **`data`**: An array of objects representing the rows of the table. Each
-  object should have string keys.
-- **`options`**: Optional configuration for table rendering.
-- **`options.maxColumnWidth`**: The maximum width for any column (default: 75).
-  Values exceeding this width will be wrapped at word boundaries.
-- **`options.minColumnWidth`**: The minimum width for any column (default: 3).
-- **`options.typesRowIndex`**: The index of a row that contains type annotations
-  (e.g. "VARCHAR/string"). This row will be rendered in grey. If omitted, no row
-  is treated as a types row.
+##### data
 
-### Returns
+`object`[]
+
+An array of objects representing the rows of the table. Each object should have string keys.
+
+##### options?
+
+Optional configuration for table rendering.
+
+###### maxColumnWidth?
+
+`number`
+
+The maximum width for any column (default: 75). Values exceeding this width will be wrapped at word boundaries.
+
+###### minColumnWidth?
+
+`number`
+
+The minimum width for any column (default: 3).
+
+###### typesRowIndex?
+
+`number`
+
+The index of a row that contains type annotations (e.g. "VARCHAR/string"). This row will be rendered in grey. If omitted, no row is treated as a types row.
+
+#### Returns
+
+`void`
 
 void - The table is printed directly to the console.
 
-### Examples
+#### Examples
 
 ```typescript
 const data = [
-  {
-    name: "Alice",
-    description: "A software engineer with expertise in TypeScript",
-  },
-  { name: "Bob", description: "A product manager" },
+  { name: "Alice", description: "A software engineer with expertise in TypeScript" },
+  { name: "Bob", description: "A product manager" }
 ];
 printTable(data, { maxColumnWidth: 30 });
 // Outputs a nicely formatted table with word-wrapped description column
@@ -693,61 +772,68 @@ printTable(data, { maxColumnWidth: 30 });
 const types = { name: "VARCHAR/string", age: "INTEGER/number" };
 const data = [
   { name: "Alice", age: 30 },
-  { name: "Bob", age: 25 },
+  { name: "Bob", age: 25 }
 ];
 printTable([types, ...data], { typesRowIndex: 0 });
 ```
 
-## round
+***
 
-Rounds a number based on specified criteria: a fixed number of decimal places,
-to the nearest integer multiple, or to a specific number of significant digits.
-This function provides flexible rounding capabilities essential for data
-presentation and numerical accuracy.
+### round()
 
-By default, if no options are specified, the function rounds to the nearest
-whole number.
+> **round**(`number`, `options?`): `number`
 
-### Signature
+Rounds a number based on specified criteria: a fixed number of decimal places, to the nearest integer multiple, or to a specific number of significant digits. This function provides flexible rounding capabilities essential for data presentation and numerical accuracy.
 
-```typescript
-function round(
-  number: number,
-  options?: {
-    decimals?: number;
-    nearestInteger?: number;
-    significantDigits?: number;
-    try?: boolean;
-  },
-): number;
-```
+By default, if no options are specified, the function rounds to the nearest whole number.
 
-### Parameters
+#### Parameters
 
-- **`number`**: The number to be rounded.
-- **`options`**: An object containing options for rounding.
-- **`options.decimals`**: The number of decimal places to keep when rounding.
-  For example, `round(123.456, { decimals: 2 })` returns `123.46`.
-- **`options.nearestInteger`**: The base to which the number should be rounded.
-  For example, `round(123, { nearestInteger: 10 })` rounds to `120`.
-- **`options.significantDigits`**: The number of significant digits to retain.
-  Significant digits are counted from the first non-zero digit. For example,
-  `round(0.004622, { significantDigits: 1 })` rounds to `0.005`.
-- **`options.try`**: If `true`, the function will return `NaN` (Not a Number) if
-  the input `number` is not a valid number, instead of throwing an error.
-  Defaults to `false`.
+##### number
 
-### Returns
+`number`
+
+The number to be rounded.
+
+##### options?
+
+An object containing options for rounding.
+
+###### decimals?
+
+`number`
+
+The number of decimal places to keep when rounding. For example, `round(123.456, { decimals: 2 })` returns `123.46`.
+
+###### nearestInteger?
+
+`number`
+
+The base to which the number should be rounded. For example, `round(123, { nearestInteger: 10 })` rounds to `120`.
+
+###### significantDigits?
+
+`number`
+
+The number of significant digits to retain. Significant digits are counted from the first non-zero digit. For example, `round(0.004622, { significantDigits: 1 })` rounds to `0.005`.
+
+###### try?
+
+`boolean`
+
+If `true`, the function will return `NaN` (Not a Number) if the input `number` is not a valid number, instead of throwing an error. Defaults to `false`.
+
+#### Returns
+
+`number`
 
 The rounded number.
 
-### Throws
+#### Throws
 
-- **`Error`**: If the input `number` is not a number (and `options.try` is not
-  `true`), or if more than one rounding option (`decimals`, `nearestInteger`,
-  `significantDigits`) is provided.
+If the input `number` is not a number (and `options.try` is not `true`), or if more than one rounding option (`decimals`, `nearestInteger`, `significantDigits`) is provided.
 
-### Examples
+#### Examples
 
 ```ts
 // Round to the nearest integer (default behavior).

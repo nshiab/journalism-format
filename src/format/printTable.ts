@@ -7,13 +7,6 @@ import wrapString from "./helpers/wrapString.ts";
  *
  * This function has been created for the [simple-data-analysis library](https://github.com/nshiab/simple-data-analysis), but can be used independently for any array of objects.
  *
- * @param data - An array of objects representing the rows of the table. Each object should have string keys.
- * @param options - Optional configuration for table rendering.
- * @param options.maxColumnWidth - The maximum width for any column (default: 75). Values exceeding this width will be wrapped at word boundaries.
- * @param options.minColumnWidth - The minimum width for any column (default: 3).
- * @param options.typesRowIndex - The index of a row that contains type annotations (e.g. "VARCHAR/string"). This row will be rendered in grey. If omitted, no row is treated as a types row.
- * @returns void - The table is printed directly to the console.
- *
  * @example
  * ```typescript
  * const data = [
@@ -34,6 +27,14 @@ import wrapString from "./helpers/wrapString.ts";
  * ];
  * printTable([types, ...data], { typesRowIndex: 0 });
  * ```
+ *
+ * @param data - An array of objects representing the rows of the table. Each object should have string keys.
+ * @param options - Optional configuration for table rendering.
+ * @param options.maxColumnWidth - The maximum width for any column (default: 75). Values exceeding this width will be wrapped at word boundaries.
+ * @param options.minColumnWidth - The minimum width for any column (default: 3).
+ * @param options.typesRowIndex - The index of a row that contains type annotations (e.g. "VARCHAR/string"). This row will be rendered in grey. If omitted, no row is treated as a types row.
+ * @returns void - The table is printed directly to the console.
+ * @category Formatting
  */
 export default function printTable(
   data: { [key: string]: unknown }[],
@@ -99,10 +100,7 @@ export default function printTable(
 
   // Apply min/max constraints
   for (const col of columns) {
-    columnWidths[col] = Math.min(
-      Math.max(columnWidths[col], minColumnWidth),
-      maxColumnWidth,
-    );
+    columnWidths[col] = Math.min(Math.max(columnWidths[col], minColumnWidth), maxColumnWidth);
   }
 
   // Wrap pre-formatted strings into multi-line cells
@@ -136,7 +134,7 @@ export default function printTable(
     wrappedData.push(wrappedRow);
   }
 
-  // ANSI color codes (matching Deno's console colors)
+  // ANSI color codes
   const colors = {
     reset: "\x1b[0m",
     bold: "\x1b[1m",
@@ -149,10 +147,7 @@ export default function printTable(
   };
 
   // Helper function to get color for a value based on its actual JavaScript type
-  const getColorForValue = (
-    value: unknown,
-    isTypeRow: boolean,
-  ): string => {
+  const getColorForValue = (value: unknown, isTypeRow: boolean): string => {
     if (isTypeRow) return colors.grey;
     if (value === null || value === undefined) return colors.null;
     if (value instanceof Date) return colors.date;
@@ -162,11 +157,7 @@ export default function printTable(
   };
 
   // Helper function to create a horizontal border line with column junctions
-  const createBorderLine = (
-    left: string,
-    middle: string,
-    right: string,
-  ) => {
+  const createBorderLine = (left: string, middle: string, right: string) => {
     const segments = columns.map((col) => "─".repeat(columnWidths[col] + 2));
     return colors.grey + left + segments.join(middle) + right + colors.reset;
   };
@@ -189,12 +180,16 @@ export default function printTable(
   console.log(createTopBorder());
 
   // Print header row (bold)
-  const headerParts = columns.map((col) =>
-    ` ${colors.bold}${pad(col, columnWidths[col])}${colors.reset} `
+  const headerParts = columns.map(
+    (col) => ` ${colors.bold}${pad(col, columnWidths[col])}${colors.reset} `,
   );
   console.log(
-    colors.grey + "│" + colors.reset +
-      headerParts.join(colors.grey + "│" + colors.reset) + colors.grey + "│" +
+    colors.grey +
+      "│" +
+      colors.reset +
+      headerParts.join(colors.grey + "│" + colors.reset) +
+      colors.grey +
+      "│" +
       colors.reset,
   );
 
@@ -239,8 +234,11 @@ export default function printTable(
         return ` ${color}${pad(lineValue, columnWidths[col])}${colors.reset} `;
       });
       console.log(
-        colors.grey + "│" + colors.reset +
-          lineParts.join(colors.grey + "│" + colors.reset) + colors.grey +
+        colors.grey +
+          "│" +
+          colors.reset +
+          lineParts.join(colors.grey + "│" + colors.reset) +
+          colors.grey +
           "│" +
           colors.reset,
       );

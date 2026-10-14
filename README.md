@@ -4,16 +4,15 @@ Useful TypeScript functions for journalism projects. This library focuses on
 easily formatting numbers, dates, and more. It's part of the
 [journalism library](https://github.com/nshiab/journalism).
 
-The library is available on [JSR](https://jsr.io/@nshiab/journalism-format) with
-its [documentation](https://jsr.io/@nshiab/journalism-format/doc) and on
-[NPM](https://www.npmjs.com/package/@nshiab/journalism-format). It has no
-runtime dependencies and uses standard JavaScript and Web APIs, so it can also
-be bundled for browsers.
+The library is available on
+[npm](https://www.npmjs.com/package/@nshiab/journalism-format), with
+[documentation](https://nshiab.github.io/journalism-format/) on GitHub Pages.
 
-The documentation is also available as the markdown file
-[llm.md](https://github.com/nshiab/journalism-format/blob/main/llm.md), which
-can be passed as context to improve the use of the library by AI coding
-assistants or agents.
+The documentation is also available as
+[llms.txt](https://nshiab.github.io/journalism-format/llms.txt), an index of the
+individual documentation pages for AI agents, and
+[llm.md](https://nshiab.github.io/journalism-format/llm.md), a complete Markdown
+reference for AI coding assistants or offline reading.
 
 The library is maintained by [Nael Shiab](http://naelshiab.com/), computational
 journalist and senior data producer for [CBC News](https://www.cbc.ca/news).
@@ -26,17 +25,17 @@ journalist and senior data producer for [CBC News](https://www.cbc.ca/news).
 > [simple-data-analysis library](https://github.com/nshiab/simple-data-analysis)
 > interesting.
 
-To install the library, you can use the following commands:
+Requires **Node.js 24.21.0 or later**. Use `import` and set `"type": "module"`
+in your project's `package.json`.
 
 ```bash
-# Deno
-deno add jsr:@nshiab/journalism-format
+npm install @nshiab/journalism-format
+```
 
-# Node
-npm i @nshiab/journalism-format
+```ts
+import { formatNumber } from "@nshiab/journalism-format";
 
-# Bun
-bun add @nshiab/journalism-format
+console.log(formatNumber(1234.56)); // "1,234.56"
 ```
 
 To quickly set up a data project with essential folders, configurations, and
@@ -44,14 +43,7 @@ documentation for AI agents, you can use
 [@nshiab/setup-data-project](https://github.com/nshiab/setup-data-project).
 
 ```bash
-# Deno
-deno run -A jsr:@nshiab/setup-data-project
-
-# Node
 npx @nshiab/setup-data-project
-
-# Bun
-bunx @nshiab/setup-data-project
 ```
 
 If you wish to contribute, please check the

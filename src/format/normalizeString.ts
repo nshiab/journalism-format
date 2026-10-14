@@ -51,16 +51,11 @@ export default function normalizeString(
 ): string {
   const { stripPunctuation = true } = options;
 
-  let normalized = string
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "");
+  let normalized = string.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
   if (stripPunctuation) {
     normalized = normalized.replace(/[^\w\s]|_/g, "");
   }
 
-  return normalized
-    .replace(/\s+/g, " ")
-    .toLowerCase()
-    .trim();
+  return normalized.replace(/\s+/g, " ").toLowerCase().trim();
 }

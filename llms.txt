@@ -1,0 +1,18 @@
+# Journalism Format v1.1.10
+
+> Useful TypeScript functions for journalism projects. This library focuses on easily formatting numbers, dates, and more.
+
+- [README](https://raw.githubusercontent.com/nshiab/journalism-format/v1.1.10/README.md): Installation, examples and usage.
+
+## API
+- [arraysToData](https://raw.githubusercontent.com/nshiab/journalism-format/v1.1.10/docs/functions/arraysToData.md): arraysToData function
+- [camelCase](https://raw.githubusercontent.com/nshiab/journalism-format/v1.1.10/docs/functions/camelCase.md): camelCase function
+- [capitalize](https://raw.githubusercontent.com/nshiab/journalism-format/v1.1.10/docs/functions/capitalize.md): capitalize function
+- [dataAsCsv](https://raw.githubusercontent.com/nshiab/journalism-format/v1.1.10/docs/functions/dataAsCsv.md): dataAsCsv function
+- [dataToArrays](https://raw.githubusercontent.com/nshiab/journalism-format/v1.1.10/docs/functions/dataToArrays.md): dataToArrays function
+- [formatDate](https://raw.githubusercontent.com/nshiab/journalism-format/v1.1.10/docs/functions/formatDate.md): formatDate function
+- [formatNumber](https://raw.githubusercontent.com/nshiab/journalism-format/v1.1.10/docs/functions/formatNumber.md): formatNumber function
+- [normalizeString](https://raw.githubusercontent.com/nshiab/journalism-format/v1.1.10/docs/functions/normalizeString.md): normalizeString function
+- [prettyDuration](https://raw.githubusercontent.com/nshiab/journalism-format/v1.1.10/docs/functions/prettyDuration.md): prettyDuration function
+- [printTable](https://raw.githubusercontent.com/nshiab/journalism-format/v1.1.10/docs/functions/printTable.md): printTable function
+- [round](https://raw.githubusercontent.com/nshiab/journalism-format/v1.1.10/docs/functions/round.md): round function
