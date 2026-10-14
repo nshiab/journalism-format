@@ -1,8 +1,8 @@
-[**Journalism Format v1.1.10**](index.md)
+[**Journalism Format v1.1.11**](index.md)
 
 ***
 
-# Journalism Format v1.1.10
+# Journalism Format v1.1.11
 
 ## Formatting
 

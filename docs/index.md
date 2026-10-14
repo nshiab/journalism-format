@@ -1,4 +1,4 @@
-**Journalism Format v1.1.10**
+**Journalism Format v1.1.11**
 
 ***
 
