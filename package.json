@@ -29,15 +29,14 @@
   "scripts": {
     "fix": "vp check --fix",
     "docs": "typedoc && node scripts/docs.ts",
-    "all-tests": "vp check && npm test && npm run test-time-zones && vp pack && npm run docs",
+    "all-tests": "vp check && npm test && vp pack && npm run docs",
     "preversion": "node scripts/check-release-branch.ts && npm run all-tests",
     "version": "npm run docs && git add docs llm.md llms.txt",
     "postversion": "git push --atomic origin HEAD \"v$npm_package_version\"",
     "patch": "npm version patch",
     "minor": "npm version minor",
     "major": "npm version major",
-    "test": "EXPECTED_SYSTEM_TIME_ZONE=America/Toronto TZ=America/Toronto vp test",
-    "test-time-zones": "EXPECTED_SYSTEM_TIME_ZONE=UTC TZ=UTC vp test test/format/formatDateTZ.test.ts && EXPECTED_SYSTEM_TIME_ZONE=America/Vancouver TZ=America/Vancouver vp test test/format/formatDateTZ.test.ts"
+    "test": "EXPECTED_SYSTEM_TIME_ZONE=America/Toronto TZ=America/Toronto vp test && EXPECTED_SYSTEM_TIME_ZONE=UTC TZ=UTC vp test test/format/formatDateTZ.test.ts && EXPECTED_SYSTEM_TIME_ZONE=America/Vancouver TZ=America/Vancouver vp test test/format/formatDateTZ.test.ts"
   },
   "devDependencies": {
     "@types/node": "24.19.1",
