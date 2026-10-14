@@ -7,8 +7,6 @@ easily formatting numbers, dates, and more. It's part of the
 The library is available on
 [npm](https://www.npmjs.com/package/@nshiab/journalism-format), with
 [documentation](https://nshiab.github.io/journalism-format/) on GitHub Pages.
-It has no runtime dependencies and uses standard JavaScript and Web APIs,
-so it can also be bundled for browsers.
 
 The documentation is also available as
 [llms.txt](https://nshiab.github.io/journalism-format/llms.txt), an index of the
