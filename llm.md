@@ -15,10 +15,10 @@ It has no runtime dependencies and uses standard JavaScript and Web APIs,
 so it can also be bundled for browsers.
 
 The documentation is also available as
-[llm.md](https://nshiab.github.io/journalism-format/llm.md), a complete Markdown
-reference for AI coding assistants or offline reading, and
 [llms.txt](https://nshiab.github.io/journalism-format/llms.txt), an index of the
-individual documentation pages.
+individual documentation pages for AI agents, and
+[llm.md](https://nshiab.github.io/journalism-format/llm.md), a complete Markdown
+reference for AI coding assistants or offline reading.
 
 The library is maintained by [Nael Shiab](http://naelshiab.com/), computational
 journalist and senior data producer for [CBC News](https://www.cbc.ca/news).
