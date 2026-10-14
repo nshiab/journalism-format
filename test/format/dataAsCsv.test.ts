@@ -37,3 +37,17 @@ test("should escape CSV values and format nullish and Date values", () => {
 test("should return an empty string for an empty array", () => {
   expect(dataAsCsv([])).toStrictEqual("");
 });
+
+test("should serialize nested objects and arrays as JSON and escape them for CSV", () => {
+  const csv = dataAsCsv([
+    { details: { city: "Toronto", counts: [1, 2] }, labels: ["news", "data"] },
+  ]);
+
+  expect(csv).toStrictEqual(
+    'details,labels\n"{""city"":""Toronto"",""counts"":[1,2]}","[""news"",""data""]"',
+  );
+});
+
+test("should use an empty cell when an object's JSON representation is undefined", () => {
+  expect(dataAsCsv([{ value: { toJSON: () => undefined } }])).toStrictEqual("value\n");
+});

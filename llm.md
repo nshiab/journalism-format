@@ -220,6 +220,9 @@ Converts an array of objects into a CSV (Comma-Separated Values) string.
 
 The function takes an array of objects and returns a string in CSV format. The first line contains the union of keys found across all objects, in discovery order. Each subsequent line represents an object, with values in the same order as the headers.
 
+Object and array values are serialized as JSON before CSV escaping. Date values
+retain their UTC date formatting, and null or undefined values become empty cells.
+
 #### Parameters
 
 ##### arrayOfObjects
