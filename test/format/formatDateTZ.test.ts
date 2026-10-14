@@ -1,4 +1,4 @@
-import { assertEquals } from "jsr:@std/assert";
+import { expect, test } from "vite-plus/test";
 import formatDate from "../../src/format/formatDate.ts";
 
 const date = new Date("2023-01-01T12:00:00Z");
@@ -9,71 +9,73 @@ const expectedLocalTimes = {
   UTC: "12 p.m. UTC",
 } as const;
 
-const expectedSystemTimeZone = Deno.env.get("EXPECTED_SYSTEM_TIME_ZONE") as
-  | keyof typeof expectedLocalTimes
-  | undefined;
+const expectedSystemTimeZone = process.env.EXPECTED_SYSTEM_TIME_ZONE;
 
-Deno.test({
-  name:
-    "formatDate should use the system time zone when no override is provided",
-  ignore: expectedSystemTimeZone === undefined,
-  fn() {
-    assertEquals(
-      formatDate(date, "HH:MM period TZ"),
-      expectedLocalTimes[expectedSystemTimeZone!],
+test.skipIf(expectedSystemTimeZone === undefined)(
+  "formatDate should use the system time zone when no override is provided",
+  () => {
+    if (
+      expectedSystemTimeZone !== "America/Toronto" &&
+      expectedSystemTimeZone !== "America/Vancouver" &&
+      expectedSystemTimeZone !== "UTC"
+    ) {
+      throw new Error(`Unsupported expected system time zone: ${expectedSystemTimeZone}`);
+    }
+    expect(formatDate(date, "HH:MM period TZ")).toStrictEqual(
+      expectedLocalTimes[expectedSystemTimeZone],
     );
   },
-});
+);
 
-Deno.test("formatDate should respect timeZone option for 'HH:MM period TZ' regardless of system TZ", () => {
+test("formatDate should respect timeZone option for 'HH:MM period TZ' regardless of system TZ", () => {
   // Canada/Eastern is UTC-5 in Jan
   const formattedET = formatDate(date, "HH:MM period TZ", {
     timeZone: "Canada/Eastern",
   });
-  assertEquals(formattedET, "7 a.m. ET");
+  expect(formattedET).toStrictEqual("7 a.m. ET");
 
   // Canada/Pacific is UTC-8 in Jan
   const formattedPT = formatDate(date, "HH:MM period TZ", {
     timeZone: "Canada/Pacific",
   });
-  assertEquals(formattedPT, "4 a.m. PT");
+  expect(formattedPT).toStrictEqual("4 a.m. PT");
 });
 
-Deno.test("formatDate should respect timeZone option for 'Month DD, HH:MM period TZ' regardless of system TZ", () => {
+test("formatDate should respect timeZone option for 'Month DD, HH:MM period TZ' regardless of system TZ", () => {
   const formattedET = formatDate(date, "Month DD, HH:MM period TZ", {
     timeZone: "Canada/Eastern",
   });
-  assertEquals(formattedET, "January 1, 7 a.m. ET");
+  expect(formattedET).toStrictEqual("January 1, 7 a.m. ET");
 });
 
-Deno.test("formatDate should respect timeZone option for 'DayOfWeek, HH:MM period TZ' regardless of system TZ", () => {
+test("formatDate should respect timeZone option for 'DayOfWeek, HH:MM period TZ' regardless of system TZ", () => {
   const formattedET = formatDate(date, "DayOfWeek, HH:MM period TZ", {
     timeZone: "Canada/Eastern",
   });
-  assertEquals(formattedET, "Sunday, 7 a.m. ET");
+  expect(formattedET).toStrictEqual("Sunday, 7 a.m. ET");
 });
 
-Deno.test("formatDate should respect utc option regardless of system TZ", () => {
+test("formatDate should respect utc option regardless of system TZ", () => {
   const formattedUTC = formatDate(date, "HH:MM period TZ", {
     utc: true,
   });
-  assertEquals(formattedUTC, "12 p.m. UTC");
+  expect(formattedUTC).toStrictEqual("12 p.m. UTC");
 });
 
-Deno.test("formatDate should respect timeZone option for French style regardless of system TZ", () => {
+test("formatDate should respect timeZone option for French style regardless of system TZ", () => {
   const formattedHNE = formatDate(date, "HH:MM period TZ", {
     timeZone: "Canada/Eastern",
     style: "rc",
   });
-  assertEquals(formattedHNE, "7 h HNE");
+  expect(formattedHNE).toStrictEqual("7 h HNE");
 });
 
-Deno.test("formatDate should ignore timeZone option if utc is true", () => {
+test("formatDate should ignore timeZone option if utc is true", () => {
   const formatted = formatDate(date, "HH:MM period TZ", {
     utc: true,
     timeZone: "Canada/Eastern",
   });
-  assertEquals(formatted, "12 p.m. UTC");
+  expect(formatted).toStrictEqual("12 p.m. UTC");
 });
 
 const timeZoneCases = [
@@ -119,30 +121,26 @@ const timeZoneCases = [
   },
 ] as const;
 
-Deno.test("formatDate should preserve CBC and RC output across Canadian zones and DST", () => {
+test("formatDate should preserve CBC and RC output across Canadian zones and DST", () => {
   const winter = new Date("2023-01-01T12:15:00Z");
   const summer = new Date("2023-07-01T12:15:00Z");
 
   for (const testCase of timeZoneCases) {
-    for (
-      const [date, expected] of [
-        [winter, testCase.winter],
-        [summer, testCase.summer],
-      ] as const
-    ) {
-      assertEquals(
+    for (const [date, expected] of [
+      [winter, testCase.winter],
+      [summer, testCase.summer],
+    ] as const) {
+      expect(
         formatDate(date, "HH:MM period TZ", {
           timeZone: testCase.timeZone,
         }),
-        expected[0],
-      );
-      assertEquals(
+      ).toStrictEqual(expected[0]);
+      expect(
         formatDate(date, "HH:MM period TZ", {
           timeZone: testCase.timeZone,
           style: "rc",
         }),
-        expected[1],
-      );
+      ).toStrictEqual(expected[1]);
     }
   }
 });

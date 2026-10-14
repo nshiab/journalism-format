@@ -1,8 +1,8 @@
-import { assertEquals } from "jsr:@std/assert";
+import { expect, test } from "vite-plus/test";
 import capitalize from "../../src/format/capitalize.ts";
 
-Deno.test("should capitalize the first character of a string", () => {
+test("should capitalize the first character of a string", () => {
   const string = capitalize("journalism");
 
-  assertEquals(string, "Journalism");
+  expect(string).toStrictEqual("Journalism");
 });

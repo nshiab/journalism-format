@@ -78,11 +78,7 @@ export default function round(
     try?: boolean;
   } = {},
 ): number {
-  const optionsToCheck = [
-    options.decimals,
-    options.nearestInteger,
-    options.significantDigits,
-  ];
+  const optionsToCheck = [options.decimals, options.nearestInteger, options.significantDigits];
   if (optionsToCheck.filter((d) => typeof d === "number").length > 1) {
     throw new Error(
       "You can't use options decimals, nearestInteger, or significantDigits together. Pick one.",
@@ -94,7 +90,7 @@ export default function round(
       return NaN;
     } else {
       throw new Error(
-        `${number} is not a number. If you want to return NaN instead of throwing an error, pass option {try: true}.`,
+        `${String(number)} is not a number. If you want to return NaN instead of throwing an error, pass option {try: true}.`,
       );
     }
   }
@@ -102,9 +98,7 @@ export default function round(
   if (typeof options.decimals === "number") {
     return parseFloat(number.toFixed(options.decimals));
   } else if (typeof options.nearestInteger === "number") {
-    return (
-      Math.round(number / options.nearestInteger) * options.nearestInteger
-    );
+    return Math.round(number / options.nearestInteger) * options.nearestInteger;
   } else if (typeof options.significantDigits === "number") {
     return parseFloat(number.toPrecision(options.significantDigits));
   } else {

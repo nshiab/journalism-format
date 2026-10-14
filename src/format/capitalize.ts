@@ -1,10 +1,6 @@
 /**
  * Capitalizes the first letter of a given string.
  *
- * @param input The string to be capitalized.
- *
- * @returns A new string with the first letter in uppercase.
- *
  * @example
  * ```ts
  * // Basic usage
@@ -23,6 +19,10 @@
  * const singleChar = capitalize("a");
  * console.log(singleChar); // "A"
  * ```
+ *
+ * @param string The string to be capitalized.
+ *
+ * @returns A new string with the first letter in uppercase.
  * @category Formatting
  */
 export default function capitalize(string: string): string {

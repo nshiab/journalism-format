@@ -1,53 +1,47 @@
-import { assertEquals } from "jsr:@std/assert";
+import { expect, test } from "vite-plus/test";
 import normalizeString from "../../src/format/normalizeString.ts";
 
-Deno.test("should normalize a string by stripping accents, punctuation, and converting to lowercase", () => {
-  assertEquals(normalizeString("Évènement!"), "evenement");
-  assertEquals(normalizeString("Café?"), "cafe");
-  assertEquals(normalizeString("¡Niño!"), "nino");
-  assertEquals(normalizeString(" façade... "), "facade");
-  assertEquals(normalizeString("ÖBB (Austria)"), "obb austria");
-  assertEquals(normalizeString(""), "");
+test("should normalize a string by stripping accents, punctuation, and converting to lowercase", () => {
+  expect(normalizeString("Évènement!")).toStrictEqual("evenement");
+  expect(normalizeString("Café?")).toStrictEqual("cafe");
+  expect(normalizeString("¡Niño!")).toStrictEqual("nino");
+  expect(normalizeString(" façade... ")).toStrictEqual("facade");
+  expect(normalizeString("ÖBB (Austria)")).toStrictEqual("obb austria");
+  expect(normalizeString("")).toStrictEqual("");
 });
 
-Deno.test("should strip punctuation", () => {
-  assertEquals(normalizeString("Hello, World!"), "hello world");
-  assertEquals(normalizeString("Wait... what?"), "wait what");
-  assertEquals(normalizeString("100%"), "100");
-  assertEquals(normalizeString("email@example.com"), "emailexamplecom");
-  assertEquals(normalizeString("multi-word-string"), "multiwordstring");
-  assertEquals(normalizeString("underscore_test"), "underscoretest");
+test("should strip punctuation", () => {
+  expect(normalizeString("Hello, World!")).toStrictEqual("hello world");
+  expect(normalizeString("Wait... what?")).toStrictEqual("wait what");
+  expect(normalizeString("100%")).toStrictEqual("100");
+  expect(normalizeString("email@example.com")).toStrictEqual("emailexamplecom");
+  expect(normalizeString("multi-word-string")).toStrictEqual("multiwordstring");
+  expect(normalizeString("underscore_test")).toStrictEqual("underscoretest");
 });
 
-Deno.test("should not strip punctuation when stripPunctuation is false", () => {
-  assertEquals(
-    normalizeString("Hello, World!", { stripPunctuation: false }),
+test("should not strip punctuation when stripPunctuation is false", () => {
+  expect(normalizeString("Hello, World!", { stripPunctuation: false })).toStrictEqual(
     "hello, world!",
   );
-  assertEquals(
-    normalizeString("multi-word-string", { stripPunctuation: false }),
+  expect(normalizeString("multi-word-string", { stripPunctuation: false })).toStrictEqual(
     "multi-word-string",
   );
-  assertEquals(
-    normalizeString("Évènement!", { stripPunctuation: false }),
-    "evenement!",
-  );
+  expect(normalizeString("Évènement!", { stripPunctuation: false })).toStrictEqual("evenement!");
 });
 
-Deno.test("should trim whitespace", () => {
-  assertEquals(normalizeString("  hello  "), "hello");
-  assertEquals(normalizeString("\tworld\n"), "world");
+test("should trim whitespace", () => {
+  expect(normalizeString("  hello  ")).toStrictEqual("hello");
+  expect(normalizeString("\tworld\n")).toStrictEqual("world");
 });
 
-Deno.test("should handle multiple spaces between words", () => {
-  assertEquals(normalizeString("hello    world"), "hello world");
-  assertEquals(normalizeString("hello\tworld"), "hello world");
-  assertEquals(normalizeString("  hello    \n  world  "), "hello world");
+test("should handle multiple spaces between words", () => {
+  expect(normalizeString("hello    world")).toStrictEqual("hello world");
+  expect(normalizeString("hello\tworld")).toStrictEqual("hello world");
+  expect(normalizeString("  hello    \n  world  ")).toStrictEqual("hello world");
 });
 
-Deno.test("should handle complex accented strings", () => {
-  assertEquals(
-    normalizeString("ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïñòóôõöùúûüýÿ"),
+test("should handle complex accented strings", () => {
+  expect(normalizeString("ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïñòóôõöùúûüýÿ")).toStrictEqual(
     "aaaaaaceeeeiiiinooooouuuuyaaaaaaceeeeiiiinooooouuuuyy",
   );
 });

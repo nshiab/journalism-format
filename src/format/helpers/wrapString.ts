@@ -27,11 +27,7 @@
  * // Output: Thisisaver / ylongword
  * ```
  */
-export default function wrapString(
-  str: string,
-  maxWidth: number,
-  wordWrap = true,
-): string {
+export default function wrapString(str: string, maxWidth: number, wordWrap = true): string {
   if (str.length <= maxWidth) {
     return str;
   }

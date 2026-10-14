@@ -1,77 +1,77 @@
-import { assertEquals } from "jsr:@std/assert";
+import { expect, test } from "vite-plus/test";
 import wrapString from "../../../src/format/helpers/wrapString.ts";
 
-Deno.test("wrapString should not wrap short strings", () => {
+test("wrapString should not wrap short strings", () => {
   const result = wrapString("Hello", 10);
-  assertEquals(result, "Hello");
+  expect(result).toStrictEqual("Hello");
 });
 
-Deno.test("wrapString should wrap long strings at word boundaries", () => {
+test("wrapString should wrap long strings at word boundaries", () => {
   const text = "This is a very long sentence that needs to be wrapped";
   const result = wrapString(text, 20);
   const lines = result.split("\n");
 
   // Each line should be <= 20 characters
   for (const line of lines) {
-    assertEquals(line.length <= 20, true);
+    expect(line.length <= 20).toStrictEqual(true);
   }
 
   // Should have multiple lines
-  assertEquals(lines.length > 1, true);
+  expect(lines.length > 1).toStrictEqual(true);
 });
 
-Deno.test("wrapString should wrap at character boundary when wordWrap is false", () => {
+test("wrapString should wrap at character boundary when wordWrap is false", () => {
   const text = "Thisisaverylongword";
   const result = wrapString(text, 10, false);
-  assertEquals(result, "Thisisaver\nylongword");
+  expect(result).toStrictEqual("Thisisaver\nylongword");
 });
 
-Deno.test("wrapString should handle very long words by breaking them", () => {
+test("wrapString should handle very long words by breaking them", () => {
   const text = "Thisisaverylongwordthatcannotbewrappedatwordboundaries";
   const result = wrapString(text, 10);
   const lines = result.split("\n");
 
   // Each line should be <= 10 characters
   for (const line of lines) {
-    assertEquals(line.length <= 10, true);
+    expect(line.length <= 10).toStrictEqual(true);
   }
 
   // Should have multiple lines
-  assertEquals(lines.length > 1, true);
+  expect(lines.length > 1).toStrictEqual(true);
 });
 
-Deno.test("wrapString should handle text with spaces", () => {
+test("wrapString should handle text with spaces", () => {
   const text = "Hello world this is a test";
   const result = wrapString(text, 15);
   const lines = result.split("\n");
 
   // Each line should be <= 15 characters
   for (const line of lines) {
-    assertEquals(line.length <= 15, true);
+    expect(line.length <= 15).toStrictEqual(true);
   }
 
   // When recombined (removing newlines and extra spaces), should match original
   const recombined = lines.join(" ").replace(/\s+/g, " ");
-  assertEquals(recombined, text);
+  expect(recombined).toStrictEqual(text);
 });
 
-Deno.test("wrapString should handle empty string", () => {
+test("wrapString should handle empty string", () => {
   const result = wrapString("", 10);
-  assertEquals(result, "");
+  expect(result).toStrictEqual("");
 });
 
-Deno.test("wrapString should handle single character", () => {
+test("wrapString should handle single character", () => {
   const result = wrapString("a", 10);
-  assertEquals(result, "a");
+  expect(result).toStrictEqual("a");
 });
 
-Deno.test("wrapString should wrap when text is exactly maxWidth + 1", () => {
+test("wrapString should wrap when text is exactly maxWidth + 1", () => {
   const text = "12345678901";
   const result = wrapString(text, 10, false);
-  assertEquals(result, "1234567890\n1");
+  expect(result).toStrictEqual("1234567890\n1");
 });
 
-Deno.test("wrapString should preserve word boundaries for readable text", () => {
+test("wrapString should preserve word boundaries for readable text", () => {
   const text = "The quick brown fox jumps over the lazy dog";
   const result = wrapString(text, 20);
   const lines = result.split("\n");
@@ -79,7 +79,7 @@ Deno.test("wrapString should preserve word boundaries for readable text", () => 
   // No line should start with a space (word boundary preservation)
   for (const line of lines) {
     if (line.length > 0) {
-      assertEquals(line[0] !== " ", true);
+      expect(line[0] !== " ").toStrictEqual(true);
     }
   }
 });

@@ -111,9 +111,7 @@ export default function formatNumber(
   let abbreviation = "";
   if (mergedOptions.abbreviation && number !== 0) {
     const abbreviations = ["", "K", "M", "B", "T"];
-    const index = Math.floor(
-      Math.log10(Math.abs(number)) / 3,
-    );
+    const index = Math.floor(Math.log10(Math.abs(number)) / 3);
     abbreviation = abbreviations[index];
     number = number / Math.pow(10, index * 3);
   }
@@ -146,9 +144,7 @@ export default function formatNumber(
       formattedNumber = formattedIntegers;
     }
   } else if (mergedOptions.style === "rc") {
-    const string = mergedOptions.fixed
-      ? number.toFixed(mergedOptions.decimals)
-      : number.toString();
+    const string = mergedOptions.fixed ? number.toFixed(mergedOptions.decimals) : number.toString();
     if (string.length === 4) {
       formattedNumber = string.replace(".", ",");
     } else {
@@ -176,13 +172,13 @@ export default function formatNumber(
   // Handle dollar sign prefix placement
   if (mergedOptions.prefix === "$") {
     if (formattedNumber.startsWith("-")) {
-      return `-${mergedOptions.prefix}${
-        formattedNumber.slice(1)
-      }${abbreviation}${mergedOptions.suffix}`;
+      return `-${mergedOptions.prefix}${formattedNumber.slice(
+        1,
+      )}${abbreviation}${mergedOptions.suffix}`;
     } else if (formattedNumber.startsWith("+")) {
-      return `+${mergedOptions.prefix}${
-        formattedNumber.slice(1)
-      }${abbreviation}${mergedOptions.suffix}`;
+      return `+${mergedOptions.prefix}${formattedNumber.slice(
+        1,
+      )}${abbreviation}${mergedOptions.suffix}`;
     } else {
       return `${mergedOptions.prefix}${formattedNumber}${abbreviation}${mergedOptions.suffix}`;
     }

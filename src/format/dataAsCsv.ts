@@ -15,13 +15,15 @@ function formatCsvDate(date: Date): string {
   const minutes = date.getUTCMinutes();
   const seconds = date.getUTCSeconds();
   const milliseconds = date.getUTCMilliseconds();
-  const day = formatYear(date.getUTCFullYear()) + "-" +
-    pad(date.getUTCMonth() + 1, 2) + "-" + pad(date.getUTCDate(), 2);
+  const day =
+    formatYear(date.getUTCFullYear()) +
+    "-" +
+    pad(date.getUTCMonth() + 1, 2) +
+    "-" +
+    pad(date.getUTCDate(), 2);
 
   if (milliseconds !== 0) {
-    return `${day}T${pad(hours, 2)}:${pad(minutes, 2)}:${pad(seconds, 2)}.${
-      pad(milliseconds, 3)
-    }Z`;
+    return `${day}T${pad(hours, 2)}:${pad(minutes, 2)}:${pad(seconds, 2)}.${pad(milliseconds, 3)}Z`;
   }
   if (seconds !== 0) {
     return `${day}T${pad(hours, 2)}:${pad(minutes, 2)}:${pad(seconds, 2)}Z`;
@@ -78,14 +80,10 @@ function inferColumns(rows: { [key: string]: unknown }[]): string[] {
  * ```
  * @category Formatting
  */
-export default function dataAsCsv(
-  arrayOfObjects: { [key: string]: unknown }[],
-): string {
+export default function dataAsCsv(arrayOfObjects: { [key: string]: unknown }[]): string {
   const columns = inferColumns(arrayOfObjects);
   return [
     columns.map(formatCsvValue).join(","),
-    ...arrayOfObjects.map((row) =>
-      columns.map((column) => formatCsvValue(row[column])).join(",")
-    ),
+    ...arrayOfObjects.map((row) => columns.map((column) => formatCsvValue(row[column])).join(",")),
   ].join("\n");
 }

@@ -1,279 +1,279 @@
-import { assertEquals } from "jsr:@std/assert";
+import { expect, test } from "vite-plus/test";
 import formatNumber from "../../src/format/formatNumber.ts";
 
-Deno.test("should return the number as a string", () => {
+test("should return the number as a string", () => {
   const string = formatNumber(10);
-  assertEquals(string, "10");
+  expect(string).toStrictEqual("10");
 });
-Deno.test("should return the number with coma as a thousand separator (using 1000)", () => {
+test("should return the number with coma as a thousand separator (using 1000)", () => {
   const string = formatNumber(1000);
-  assertEquals(string, "1,000");
+  expect(string).toStrictEqual("1,000");
 });
-Deno.test("should return the number with coma as a thousand separator (using 10000)", () => {
+test("should return the number with coma as a thousand separator (using 10000)", () => {
   const string = formatNumber(10000);
-  assertEquals(string, "10,000");
+  expect(string).toStrictEqual("10,000");
 });
-Deno.test("should return the number with coma as a thousand separator (using 100000)", () => {
+test("should return the number with coma as a thousand separator (using 100000)", () => {
   const string = formatNumber(100000);
-  assertEquals(string, "100,000");
+  expect(string).toStrictEqual("100,000");
 });
-Deno.test("should return the number with coma as a thousand separator and keep decimals (using 1000000000.1234)", () => {
+test("should return the number with coma as a thousand separator and keep decimals (using 1000000000.1234)", () => {
   const string = formatNumber(1000000000.1234);
-  assertEquals(string, "1,000,000,000.1234");
+  expect(string).toStrictEqual("1,000,000,000.1234");
 });
-Deno.test("should return the number with + sign", () => {
+test("should return the number with + sign", () => {
   const string = formatNumber(1.12, { sign: true });
-  assertEquals(string, "+1.12");
+  expect(string).toStrictEqual("+1.12");
 });
-Deno.test("should return the number with - sign", () => {
+test("should return the number with - sign", () => {
   const string = formatNumber(-2.23, { sign: true });
-  assertEquals(string, "-2.23");
+  expect(string).toStrictEqual("-2.23");
 });
-Deno.test("should return 0 even if with option sign to true", () => {
+test("should return 0 even if with option sign to true", () => {
   const string = formatNumber(0, { sign: true });
-  assertEquals(string, "0");
+  expect(string).toStrictEqual("0");
 });
-Deno.test("should return the number rounded", () => {
+test("should return the number rounded", () => {
   const string = formatNumber(1.5345, { round: true });
-  assertEquals(string, "2");
+  expect(string).toStrictEqual("2");
 });
-Deno.test("should return the number rounded with 2 decimals", () => {
+test("should return the number rounded with 2 decimals", () => {
   const string = formatNumber(1.5345, { decimals: 2 });
-  assertEquals(string, "1.53");
+  expect(string).toStrictEqual("1.53");
 });
-Deno.test("should return the number rounded with 2 fixed decimals", () => {
+test("should return the number rounded with 2 fixed decimals", () => {
   const string = formatNumber(1.5042, { decimals: 2, fixed: true });
-  assertEquals(string, "1.50");
+  expect(string).toStrictEqual("1.50");
 });
-Deno.test("should return the number rounded with base 10", () => {
+test("should return the number rounded with base 10", () => {
   const string = formatNumber(11523.5345, { nearestInteger: 10 });
-  assertEquals(string, "11,520");
+  expect(string).toStrictEqual("11,520");
 });
-Deno.test("should return the number rounded with 2 decimals and + sign", () => {
+test("should return the number rounded with 2 decimals and + sign", () => {
   const string = formatNumber(1.5345, { decimals: 2, sign: true });
-  assertEquals(string, "+1.53");
+  expect(string).toStrictEqual("+1.53");
 });
-Deno.test("should return the number rounded with base 10 and + sign", () => {
+test("should return the number rounded with base 10 and + sign", () => {
   const string = formatNumber(11523.5345, {
     nearestInteger: 10,
     sign: true,
   });
-  assertEquals(string, "+11,520");
+  expect(string).toStrictEqual("+11,520");
 });
-Deno.test("should return the number rounded with 2 decimals and - sign", () => {
+test("should return the number rounded with 2 decimals and - sign", () => {
   const string = formatNumber(-1.5345, { decimals: 2, sign: true });
-  assertEquals(string, "-1.53");
+  expect(string).toStrictEqual("-1.53");
 });
-Deno.test("should return the number rounded with 2 fixed decimals and - sign", () => {
+test("should return the number rounded with 2 fixed decimals and - sign", () => {
   const string = formatNumber(-1.5023, {
     decimals: 2,
     fixed: true,
     sign: true,
   });
-  assertEquals(string, "-1.50");
+  expect(string).toStrictEqual("-1.50");
 });
-Deno.test("should return the number rounded with base 10 and - sign", () => {
+test("should return the number rounded with base 10 and - sign", () => {
   const string = formatNumber(-11523.5345, {
     nearestInteger: 10,
     sign: true,
   });
-  assertEquals(string, "-11,520");
+  expect(string).toStrictEqual("-11,520");
 });
-Deno.test("should return the negative number with prefix", () => {
+test("should return the negative number with prefix", () => {
   const string = formatNumber(-11523, {
     prefix: "$",
   });
-  assertEquals(string, "-$11,523");
+  expect(string).toStrictEqual("-$11,523");
 });
-Deno.test("should return the negative number with prefix and sign", () => {
+test("should return the negative number with prefix and sign", () => {
   const string = formatNumber(11523, {
     prefix: "$",
     sign: true,
   });
-  assertEquals(string, "+$11,523");
+  expect(string).toStrictEqual("+$11,523");
 });
-Deno.test("should return the number with suffix", () => {
+test("should return the number with suffix", () => {
   const string = formatNumber(35, {
     suffix: " C",
   });
-  assertEquals(string, "35 C");
+  expect(string).toStrictEqual("35 C");
 });
-Deno.test("should return the number with a prefix and a suffix", () => {
+test("should return the number with a prefix and a suffix", () => {
   const string = formatNumber(35, {
     prefix: "Temp.: ",
     suffix: " C",
   });
-  assertEquals(string, "Temp.: 35 C");
+  expect(string).toStrictEqual("Temp.: 35 C");
 });
 
 // Radio-Canada style
 
-Deno.test("should return the number as a string without separator (using 1000)", () => {
+test("should return the number as a string without separator (using 1000)", () => {
   const string = formatNumber(1000, { style: "rc" });
-  assertEquals(string, "1000");
+  expect(string).toStrictEqual("1000");
 });
-Deno.test("should return the number with non-breaking space as a thousand separator (using 10000)", () => {
+test("should return the number with non-breaking space as a thousand separator (using 10000)", () => {
   const string = formatNumber(10000, { style: "rc" });
-  assertEquals(string, "10 000");
+  expect(string).toStrictEqual("10 000");
 });
-Deno.test("should return the number with non-breaking space as a thousand separator (using 100000)", () => {
+test("should return the number with non-breaking space as a thousand separator (using 100000)", () => {
   const string = formatNumber(100000, { style: "rc" });
-  assertEquals(string, "100 000");
+  expect(string).toStrictEqual("100 000");
 });
-Deno.test("should return the number with non-breaking space as a thousand separator and keep decimals (using 1000000000.1234)", () => {
+test("should return the number with non-breaking space as a thousand separator and keep decimals (using 1000000000.1234)", () => {
   const string = formatNumber(1000000000.1234, { style: "rc" });
-  assertEquals(string, "1 000 000 000,1234");
+  expect(string).toStrictEqual("1 000 000 000,1234");
 });
-Deno.test("should return the number with + sign with rc style", () => {
+test("should return the number with + sign with rc style", () => {
   const string = formatNumber(1.12, { sign: true, style: "rc" });
-  assertEquals(string, "+1,12");
+  expect(string).toStrictEqual("+1,12");
 });
-Deno.test("should return the number with - sign with rc style", () => {
+test("should return the number with - sign with rc style", () => {
   const string = formatNumber(-2.23, { sign: true, style: "rc" });
-  assertEquals(string, "-2,23");
+  expect(string).toStrictEqual("-2,23");
 });
-Deno.test("should return the number rounded with rc style", () => {
+test("should return the number rounded with rc style", () => {
   const string = formatNumber(1.5345, { round: true, style: "rc" });
-  assertEquals(string, "2");
+  expect(string).toStrictEqual("2");
 });
-Deno.test("should return the number rounded with 2 decimals with rc style", () => {
+test("should return the number rounded with 2 decimals with rc style", () => {
   const string = formatNumber(1.5345, { decimals: 2, style: "rc" });
-  assertEquals(string, "1,53");
+  expect(string).toStrictEqual("1,53");
 });
-Deno.test("should return the number rounded with 2 fixed decimals with rc style", () => {
+test("should return the number rounded with 2 fixed decimals with rc style", () => {
   const string = formatNumber(1.5042, {
     decimals: 2,
     fixed: true,
     style: "rc",
   });
-  assertEquals(string, "1,50");
+  expect(string).toStrictEqual("1,50");
 });
-Deno.test("should return the number rounded with base 10 with rc style", () => {
+test("should return the number rounded with base 10 with rc style", () => {
   const string = formatNumber(11523.5345, {
     nearestInteger: 10,
     style: "rc",
   });
-  assertEquals(string, "11 520");
+  expect(string).toStrictEqual("11 520");
 });
-Deno.test("should return the number rounded with 2 decimals, + sign and rc style", () => {
+test("should return the number rounded with 2 decimals, + sign and rc style", () => {
   const string = formatNumber(1.5345, {
     decimals: 2,
     sign: true,
     style: "rc",
   });
-  assertEquals(string, "+1,53");
+  expect(string).toStrictEqual("+1,53");
 });
-Deno.test("should return the number rounded, with 2 fixed decimals, +sign and rc style", () => {
+test("should return the number rounded, with 2 fixed decimals, +sign and rc style", () => {
   const string = formatNumber(1.2, {
     decimals: 2,
     fixed: true,
     sign: true,
     style: "rc",
   });
-  assertEquals(string, "+1,20");
+  expect(string).toStrictEqual("+1,20");
 });
-Deno.test("should return the number rounded with base 10, + sign and rc style", () => {
+test("should return the number rounded with base 10, + sign and rc style", () => {
   const string = formatNumber(11523.5345, {
     nearestInteger: 10,
     sign: true,
     style: "rc",
   });
-  assertEquals(string, "+11 520");
+  expect(string).toStrictEqual("+11 520");
 });
-Deno.test("should return the number rounded with 2 decimals, - sign and rc style", () => {
+test("should return the number rounded with 2 decimals, - sign and rc style", () => {
   const string = formatNumber(-1.5345, {
     decimals: 2,
     sign: true,
     style: "rc",
   });
-  assertEquals(string, "-1,53");
+  expect(string).toStrictEqual("-1,53");
 });
-Deno.test("should return the number rounded with base 10, - sign and rc style", () => {
+test("should return the number rounded with base 10, - sign and rc style", () => {
   const string = formatNumber(-11523.5345, {
     nearestInteger: 10,
     sign: true,
     style: "rc",
   });
-  assertEquals(string, "-11 520");
+  expect(string).toStrictEqual("-11 520");
 });
-Deno.test("should return the number with suffix and rc style", () => {
+test("should return the number with suffix and rc style", () => {
   const string = formatNumber(35.2, {
     suffix: " C",
     style: "rc",
   });
-  assertEquals(string, "35,2 C");
+  expect(string).toStrictEqual("35,2 C");
 });
-Deno.test("should return the number with a prefix, a suffix and rc style", () => {
+test("should return the number with a prefix, a suffix and rc style", () => {
   const string = formatNumber(35.6, {
     prefix: "Temp.: ",
     suffix: " C",
     style: "rc",
   });
-  assertEquals(string, "Temp.: 35,6 C");
+  expect(string).toStrictEqual("Temp.: 35,6 C");
 });
-Deno.test("should return the number round with 1 significant digit", () => {
+test("should return the number round with 1 significant digit", () => {
   const string = formatNumber(0.01578, { significantDigits: 1 });
-  assertEquals(string, "0.02");
+  expect(string).toStrictEqual("0.02");
 });
-Deno.test("should return the number round with 2 significant digits and a positive sign", () => {
+test("should return the number round with 2 significant digits and a positive sign", () => {
   const string = formatNumber(0.01578, {
     significantDigits: 2,
     sign: true,
   });
-  assertEquals(string, "+0.016");
+  expect(string).toStrictEqual("+0.016");
 });
-Deno.test("should return the number round with 2 significant digits and a negative sign", () => {
+test("should return the number round with 2 significant digits and a negative sign", () => {
   const string = formatNumber(-0.01578, {
     significantDigits: 2,
     sign: true,
   });
-  assertEquals(string, "-0.016");
+  expect(string).toStrictEqual("-0.016");
 });
-Deno.test("should return the number round with 2 significant digits and a percentage sign", () => {
+test("should return the number round with 2 significant digits and a percentage sign", () => {
   const string = formatNumber(1.3922092532695824, {
     suffix: "%",
     significantDigits: 2,
   });
-  assertEquals(string, "1.4%");
+  expect(string).toStrictEqual("1.4%");
 });
-Deno.test("should return the number not abbreviated", () => {
+test("should return the number not abbreviated", () => {
   const string = formatNumber(15, { abbreviation: true });
-  assertEquals(string, "15");
+  expect(string).toStrictEqual("15");
 });
-Deno.test("should return the number abbreviated to K", () => {
+test("should return the number abbreviated to K", () => {
   const string = formatNumber(1500, { abbreviation: true });
-  assertEquals(string, "1.5K");
+  expect(string).toStrictEqual("1.5K");
 });
-Deno.test("should return the number abbreviated to M", () => {
+test("should return the number abbreviated to M", () => {
   const string = formatNumber(1500000, { abbreviation: true });
-  assertEquals(string, "1.5M");
+  expect(string).toStrictEqual("1.5M");
 });
-Deno.test("should return the number abbreviated to B", () => {
+test("should return the number abbreviated to B", () => {
   const string = formatNumber(1500000000, { abbreviation: true });
-  assertEquals(string, "1.5B");
+  expect(string).toStrictEqual("1.5B");
 });
-Deno.test("should return the number abbreviated to T", () => {
+test("should return the number abbreviated to T", () => {
   const string = formatNumber(1500000000000, { abbreviation: true });
-  assertEquals(string, "1.5T");
+  expect(string).toStrictEqual("1.5T");
 });
-Deno.test("should return the number abbreviated with prefix and suffix", () => {
+test("should return the number abbreviated with prefix and suffix", () => {
   const string = formatNumber(1500, {
     abbreviation: true,
     prefix: "$",
     suffix: " USD",
   });
-  assertEquals(string, "$1.5K USD");
+  expect(string).toStrictEqual("$1.5K USD");
 });
-Deno.test("should return the number abbreviated with 2 decimals", () => {
+test("should return the number abbreviated with 2 decimals", () => {
   const string = formatNumber(1525, {
     abbreviation: true,
     decimals: 2,
     prefix: "$",
     suffix: " USD",
   });
-  assertEquals(string, "$1.52K USD");
+  expect(string).toStrictEqual("$1.52K USD");
 });
-Deno.test("should return the number abbreviated with 3 fixed decimals", () => {
+test("should return the number abbreviated with 3 fixed decimals", () => {
   const string = formatNumber(1510, {
     abbreviation: true,
     decimals: 3,
@@ -281,84 +281,84 @@ Deno.test("should return the number abbreviated with 3 fixed decimals", () => {
     prefix: "$",
     suffix: " USD",
   });
-  assertEquals(string, "$1.510K USD");
+  expect(string).toStrictEqual("$1.510K USD");
 });
-Deno.test("should return the number abbreviated with 0 decimals", () => {
+test("should return the number abbreviated with 0 decimals", () => {
   const string = formatNumber(1525, {
     abbreviation: true,
     decimals: 0,
     prefix: "$",
     suffix: " USD",
   });
-  assertEquals(string, "$2K USD");
+  expect(string).toStrictEqual("$2K USD");
 });
-Deno.test("should return 0 when abbreviation is true", () => {
+test("should return 0 when abbreviation is true", () => {
   const string = formatNumber(0, {
     abbreviation: true,
     decimals: 0,
     prefix: "$",
     suffix: " USD",
   });
-  assertEquals(string, "$0 USD");
+  expect(string).toStrictEqual("$0 USD");
 });
-Deno.test("should return the absolute value when sign is strictly false (positive number)", () => {
+test("should return the absolute value when sign is strictly false (positive number)", () => {
   const string = formatNumber(123, { sign: false });
-  assertEquals(string, "123");
+  expect(string).toStrictEqual("123");
 });
-Deno.test("should return the absolute value when sign is strictly false (negative number)", () => {
+test("should return the absolute value when sign is strictly false (negative number)", () => {
   const string = formatNumber(-456, { sign: false });
-  assertEquals(string, "456");
+  expect(string).toStrictEqual("456");
 });
-Deno.test("should not remove sign if sign is undefined (negative number)", () => {
+test("should not remove sign if sign is undefined (negative number)", () => {
   const string = formatNumber(-789, {});
-  assertEquals(string, "-789");
+  expect(string).toStrictEqual("-789");
 });
-Deno.test("should not remove sign if sign is undefined (positive number)", () => {
+test("should not remove sign if sign is undefined (positive number)", () => {
   const string = formatNumber(789, {});
-  assertEquals(string, "789");
+  expect(string).toStrictEqual("789");
 });
-Deno.test("should work with sign false and prefix/suffix", () => {
+test("should work with sign false and prefix/suffix", () => {
   const string = formatNumber(-1000, {
     sign: false,
     prefix: "$",
     suffix: " USD",
   });
-  assertEquals(string, "$1,000 USD");
+  expect(string).toStrictEqual("$1,000 USD");
 });
-Deno.test("should return the negative number abbreviated to K", () => {
+test("should return the negative number abbreviated to K", () => {
   const string = formatNumber(-1500, { abbreviation: true });
-  assertEquals(string, "-1.5K");
+  expect(string).toStrictEqual("-1.5K");
 });
-Deno.test("should return the negative number abbreviated to M", () => {
+test("should return the negative number abbreviated to M", () => {
   const string = formatNumber(-1500000, { abbreviation: true });
-  assertEquals(string, "-1.5M");
+  expect(string).toStrictEqual("-1.5M");
 });
-Deno.test("should return the negative number abbreviated to B", () => {
+test("should return the negative number abbreviated to B", () => {
   const string = formatNumber(-1500000000, { abbreviation: true });
-  assertEquals(string, "-1.5B");
+  expect(string).toStrictEqual("-1.5B");
 });
-Deno.test("should return the negative number abbreviated to T", () => {
+test("should return the negative number abbreviated to T", () => {
   const string = formatNumber(-1500000000000, { abbreviation: true });
-  assertEquals(string, "-1.5T");
+  expect(string).toStrictEqual("-1.5T");
 });
-Deno.test("should return the negative number abbreviated with prefix and suffix", () => {
+test("should return the negative number abbreviated with prefix and suffix", () => {
   const string = formatNumber(-1500, {
     abbreviation: true,
     prefix: "$",
     suffix: " USD",
   });
-  assertEquals(string, "-$1.5K USD");
+  expect(string).toStrictEqual("-$1.5K USD");
 });
-Deno.test("should return the negative number abbreviated with 2 decimals", () => {
+test("should return the negative number abbreviated with 2 decimals", () => {
   const string = formatNumber(-1525, {
     abbreviation: true,
     decimals: 2,
     prefix: "$",
     suffix: " USD",
   });
-  assertEquals(string, "-$1.52K USD");
+  expect(string).toStrictEqual("-$1.52K USD");
 });
-Deno.test("should return the negative number abbreviated with 3 fixed decimals", () => {
+test("should return the negative number abbreviated with 3 fixed decimals", () => {
   const string = formatNumber(-1510, {
     abbreviation: true,
     decimals: 3,
@@ -366,133 +366,133 @@ Deno.test("should return the negative number abbreviated with 3 fixed decimals",
     prefix: "$",
     suffix: " USD",
   });
-  assertEquals(string, "-$1.510K USD");
+  expect(string).toStrictEqual("-$1.510K USD");
 });
-Deno.test("should return the negative number abbreviated with 0 decimals", () => {
+test("should return the negative number abbreviated with 0 decimals", () => {
   const string = formatNumber(-1525, {
     abbreviation: true,
     decimals: 0,
     prefix: "$",
     suffix: " USD",
   });
-  assertEquals(string, "-$2K USD");
+  expect(string).toStrictEqual("-$2K USD");
 });
-Deno.test("should return CBC-style position for 1", () => {
+test("should return CBC-style position for 1", () => {
   const string = formatNumber(1, { position: true });
-  assertEquals(string, "first");
+  expect(string).toStrictEqual("first");
 });
-Deno.test("should return CBC-style position for 2", () => {
+test("should return CBC-style position for 2", () => {
   const string = formatNumber(2, { position: true });
-  assertEquals(string, "second");
+  expect(string).toStrictEqual("second");
 });
-Deno.test("should return CBC-style position for 3", () => {
+test("should return CBC-style position for 3", () => {
   const string = formatNumber(3, { position: true });
-  assertEquals(string, "third");
+  expect(string).toStrictEqual("third");
 });
-Deno.test("should return CBC-style position for 11", () => {
+test("should return CBC-style position for 11", () => {
   const string = formatNumber(11, { position: true });
-  assertEquals(string, "11th");
+  expect(string).toStrictEqual("11th");
 });
-Deno.test("should return CBC-style position for 22", () => {
+test("should return CBC-style position for 22", () => {
   const string = formatNumber(22, { position: true });
-  assertEquals(string, "22nd");
+  expect(string).toStrictEqual("22nd");
 });
-Deno.test("should return CBC-style position for 33", () => {
+test("should return CBC-style position for 33", () => {
   const string = formatNumber(33, { position: true });
-  assertEquals(string, "33rd");
+  expect(string).toStrictEqual("33rd");
 });
-Deno.test("should throw for invalid position (0)", () => {
+test("should throw for invalid position (0)", () => {
   let error = null;
   try {
     formatNumber(0, { position: true });
   } catch (e) {
     error = e;
   }
-  assertEquals(error instanceof Error, true);
+  expect(error instanceof Error).toStrictEqual(true);
 });
-Deno.test("should throw for invalid position (1.5)", () => {
+test("should throw for invalid position (1.5)", () => {
   let error = null;
   try {
     formatNumber(1.5, { position: true });
   } catch (e) {
     error = e;
   }
-  assertEquals(error instanceof Error, true);
+  expect(error instanceof Error).toStrictEqual(true);
 });
-Deno.test("should return RC-style position for 1", () => {
+test("should return RC-style position for 1", () => {
   const string = formatNumber(1, { position: true, style: "rc" });
-  assertEquals(string, "premier");
+  expect(string).toStrictEqual("premier");
 });
-Deno.test("should return RC-style position for 2", () => {
+test("should return RC-style position for 2", () => {
   const string = formatNumber(2, { position: true, style: "rc" });
-  assertEquals(string, "deuxième");
+  expect(string).toStrictEqual("deuxième");
 });
-Deno.test("should return RC-style position for 3", () => {
+test("should return RC-style position for 3", () => {
   const string = formatNumber(3, { position: true, style: "rc" });
-  assertEquals(string, "troisième");
+  expect(string).toStrictEqual("troisième");
 });
-Deno.test("should return RC-style position for 9", () => {
+test("should return RC-style position for 9", () => {
   const string = formatNumber(9, { position: true, style: "rc" });
-  assertEquals(string, "neuvième");
+  expect(string).toStrictEqual("neuvième");
 });
-Deno.test("should return RC-style position for 10", () => {
+test("should return RC-style position for 10", () => {
   const string = formatNumber(10, { position: true, style: "rc" });
-  assertEquals(string, "10e");
+  expect(string).toStrictEqual("10e");
 });
-Deno.test("should return RC-style position for 21", () => {
+test("should return RC-style position for 21", () => {
   const string = formatNumber(21, { position: true, style: "rc" });
-  assertEquals(string, "21e");
+  expect(string).toStrictEqual("21e");
 });
-Deno.test("should throw for invalid RC position (0)", () => {
+test("should throw for invalid RC position (0)", () => {
   let error = null;
   try {
     formatNumber(0, { position: true, style: "rc" });
   } catch (e) {
     error = e;
   }
-  assertEquals(error instanceof Error, true);
+  expect(error instanceof Error).toStrictEqual(true);
 });
-Deno.test("should throw for invalid RC position (1.5)", () => {
+test("should throw for invalid RC position (1.5)", () => {
   let error = null;
   try {
     formatNumber(1.5, { position: true, style: "rc" });
   } catch (e) {
     error = e;
   }
-  assertEquals(error instanceof Error, true);
+  expect(error instanceof Error).toStrictEqual(true);
 });
 
-Deno.test("should format a number with thousands separator", () => {
+test("should format a number with thousands separator", () => {
   const num1 = formatNumber(1234567.89);
-  assertEquals(num1, "1,234,567.89");
+  expect(num1).toStrictEqual("1,234,567.89");
 });
 
-Deno.test("should format a number with sign and rounding to 0 decimals", () => {
+test("should format a number with sign and rounding to 0 decimals", () => {
   const num2 = formatNumber(1234.567, { sign: true, decimals: 0 });
-  assertEquals(num2, "+1,235");
+  expect(num2).toStrictEqual("+1,235");
 });
 
-Deno.test("should format a number in French style with abbreviation", () => {
+test("should format a number in French style with abbreviation", () => {
   const num3 = formatNumber(1234567, { style: "rc", abbreviation: true });
-  assertEquals(num3, "1,234567M");
+  expect(num3).toStrictEqual("1,234567M");
 });
 
-Deno.test("should format a number with fixed decimals, prefix and suffix", () => {
+test("should format a number with fixed decimals, prefix and suffix", () => {
   const num4 = formatNumber(98.765, {
     decimals: 2,
     fixed: true,
     prefix: "$",
     suffix: " CAD",
   });
-  assertEquals(num4, "$98.77 CAD");
+  expect(num4).toStrictEqual("$98.77 CAD");
 });
 
-Deno.test("should format a number as an ordinal position (English)", () => {
+test("should format a number as an ordinal position (English)", () => {
   const position1 = formatNumber(1, { position: true });
-  assertEquals(position1, "first");
+  expect(position1).toStrictEqual("first");
 });
 
-Deno.test("should format a number as an ordinal position (French)", () => {
+test("should format a number as an ordinal position (French)", () => {
   const position2 = formatNumber(2, { position: true, style: "rc" });
-  assertEquals(position2, "deuxième");
+  expect(position2).toStrictEqual("deuxième");
 });

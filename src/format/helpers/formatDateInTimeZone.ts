@@ -36,9 +36,7 @@ const CANADIAN_TIME_ZONE_NAMES: Record<string, Record<number, string>> = {
 const formatters = new Map<string, Intl.DateTimeFormat>();
 
 function normalizeTimeZone(timeZone?: string): string | undefined {
-  return timeZone === undefined
-    ? undefined
-    : CANADIAN_TIME_ZONES[timeZone] ?? timeZone;
+  return timeZone === undefined ? undefined : (CANADIAN_TIME_ZONES[timeZone] ?? timeZone);
 }
 
 function getFormatter(timeZone?: string): Intl.DateTimeFormat {
@@ -47,40 +45,26 @@ function getFormatter(timeZone?: string): Intl.DateTimeFormat {
   const cached = formatters.get(cacheKey);
   if (cached !== undefined) return cached;
 
-  const formatter = new Intl.DateTimeFormat(
-    "en-US-u-ca-gregory-nu-latn",
-    {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-      weekday: "long",
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-      hourCycle: "h23",
-      timeZoneName: "short",
-      ...(normalizedTimeZone === undefined
-        ? {}
-        : { timeZone: normalizedTimeZone }),
-    },
-  );
+  const formatter = new Intl.DateTimeFormat("en-US-u-ca-gregory-nu-latn", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    weekday: "long",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hourCycle: "h23",
+    timeZoneName: "short",
+    ...(normalizedTimeZone === undefined ? {} : { timeZone: normalizedTimeZone }),
+  });
   formatters.set(cacheKey, formatter);
   return formatter;
 }
 
 function getOffsetMinutes(date: Date, parts: Record<string, string>): number {
   const localAsUtc = new Date(0);
-  localAsUtc.setUTCFullYear(
-    Number(parts.year),
-    Number(parts.month) - 1,
-    Number(parts.day),
-  );
-  localAsUtc.setUTCHours(
-    Number(parts.hour),
-    Number(parts.minute),
-    Number(parts.second),
-    0,
-  );
+  localAsUtc.setUTCFullYear(Number(parts.year), Number(parts.month) - 1, Number(parts.day));
+  localAsUtc.setUTCHours(Number(parts.hour), Number(parts.minute), Number(parts.second), 0);
   return Math.round((localAsUtc.getTime() - date.getTime()) / 60_000);
 }
 
@@ -103,18 +87,13 @@ function normalizeTimeZoneName(
 ): string {
   if (timeZone === "UTC") return "UTC";
 
-  const normalizedTimeZone = normalizeTimeZone(timeZone) ??
-    getFormatter().resolvedOptions().timeZone;
+  const normalizedTimeZone =
+    normalizeTimeZone(timeZone) ?? getFormatter().resolvedOptions().timeZone;
   const offsetMinutes = getOffsetMinutes(date, parts);
-  const canadianName = CANADIAN_TIME_ZONE_NAMES[normalizedTimeZone]?.[
-    offsetMinutes
-  ];
+  const canadianName = CANADIAN_TIME_ZONE_NAMES[normalizedTimeZone]?.[offsetMinutes];
   if (canadianName !== undefined) return canadianName;
 
-  if (
-    normalizedTimeZone === "America/St_Johns" ||
-    normalizedTimeZone === "America/Whitehorse"
-  ) {
+  if (normalizedTimeZone === "America/St_Johns" || normalizedTimeZone === "America/Whitehorse") {
     return formatGmtOffset(offsetMinutes);
   }
   return parts.timeZoneName;
@@ -161,7 +140,6 @@ export default function formatDateInTimeZone(
 
   return pattern.replace(
     /'([^']*)'|yyyy|MMMM|EEEE|zzz|dd|MM|HH|mm|ss|aa|d|M|H|h/g,
-    (token, literal: string | undefined) =>
-      literal === undefined ? replacements[token] : literal,
+    (token, literal: string | undefined) => (literal === undefined ? replacements[token] : literal),
   );
 }
