@@ -1,6 +1,6 @@
 {
   "name": "@nshiab/journalism-format",
-  "version": "1.1.12",
+  "version": "1.1.13",
   "description": "Useful TypeScript functions for journalism projects. This library focuses on easily formatting numbers, dates, and more.",
   "homepage": "https://nshiab.github.io/journalism-format/",
   "license": "MIT",
