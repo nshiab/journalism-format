@@ -29,7 +29,7 @@ journalist and senior data producer for [CBC News](https://www.cbc.ca/news).
 > [simple-data-analysis library](https://github.com/nshiab/simple-data-analysis)
 > interesting.
 
-Requires **Node.js 24.21.0 or later**. Use `import` and set `"type": "module"`
+Use `import` and set `"type": "module"`
 in your project's `package.json`.
 
 ```bash
